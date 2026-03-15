@@ -5,34 +5,10 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap"
-        rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#7a1f1f",
-                        "accent-gold": "#d4af37",
-                        "background-light": "#f8f6f6",
-                        "background-dark": "#1f1313",
-                    },
-                    fontFamily: {
-                        "display": ["Manrope"]
-                    },
-                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
-                },
-            },
-        }
-    </script>
+    <link href="style.css" rel="stylesheet" />
+</head>
+
+<body>
     <style>
         .lotus-divider {
             height: 2px;
@@ -66,416 +42,347 @@
             grid-row: span 1.5;
         }
     </style>
-</head>
+    </head>
 
-<body
-    class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 selection:bg-primary/30">
-    <!-- Floating Donate Button -->
-    <a class="fixed bottom-8 right-8 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg hover:scale-110 transition-transform"
-        href="#donate">
-        <span class="material-symbols-outlined">volunteer_activism</span>
-    </a>
-    <!-- Top Navigation -->
-    <header class="sticky top-0 z-40 w-full border-b border-primary/10 bg-background-light/80 backdrop-blur-md">
-        <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-            <div class="flex items-center gap-3">
-                <div class="text-primary">
-                    <span class="material-symbols-outlined text-4xl">temple_buddhist</span>
+    <body
+        class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 selection:bg-primary/30">
+        <!-- Floating Donate Button -->
+        <a class="floating-donate" href="#donate">
+            <span class="material-symbols-outlined">volunteer_activism</span>
+        </a>
+
+        <!-- Top Navigation -->
+        <header class="header">
+            <div class="header-container">
+                <div class="logo-wrap">
+                    <img src="images/logo.png" alt="Gumba Logo" class="logo-img" />
+                    <h1 class="text-primary font-bold">ओर्गेन संङा क्ष्योएलिङ गुम्बा</h1>
                 </div>
-                <h1 class="text-xl font-bold tracking-tight text-primary">Amitabha Gumba</h1>
+                <nav class="nav-links">
+                    <a class="nav-link" href="#">Home</a>
+                    <a class="nav-link" href="#about">About</a>
+                    <a class="nav-link" href="#events">Events</a>
+                    <a class="nav-link" href="#gallery">Gallery</a>
+                    <a class="nav-link" href="#contact">Contact</a>
+                </nav>
+                <a class="btn btn-primary" href="#donate">Donate Now</a>
             </div>
-            <nav class="hidden md:flex items-center gap-8">
-                <a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Home</a>
-                <a class="text-sm font-semibold hover:text-primary transition-colors" href="#about">About</a>
-                <a class="text-sm font-semibold hover:text-primary transition-colors" href="#activities">Activities</a>
-                <a class="text-sm font-semibold hover:text-primary transition-colors" href="#events">Events</a>
-                <a class="text-sm font-semibold hover:text-primary transition-colors" href="#gallery">Gallery</a>
-                <a class="text-sm font-semibold hover:text-primary transition-colors" href="#contact">Contact</a>
-            </nav>
-            <div class="flex items-center gap-4">
-                <a class="rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-white shadow-sm hover:bg-primary/90 transition-all"
-                    href="#donate">
-                    Donate Now
-                </a>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-bg" data-alt="Peaceful monastery at sunrise with mountains in background"
+                style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuDJqFURdwbJC9Hj8_0JHlnNyL0-D4cNuL9-qVVrfN-ANddfACnVPWoyiYeio552q73EeTcu954LsC5Y4xaDq1FBkfDyJbbi4G937uXqv_eIaAi91eZypw_rPD9PuT7xJqmHvuL5O1bqhX9079pANkR9w-3yQjZO_CVPn8QxEPvZCMMvuf_NYOBCB1xNiSccWigzjtCPStgz6IMjlRx1AnbwFjaw2zPvs0WPUAU4G6D4mQGZAbVObDGA6MGuQf6XFsNlxN30fjg1vmNr');">
             </div>
-        </div>
-    </header>
-    <!-- Hero Section -->
-    <section class="relative h-[85vh] w-full overflow-hidden">
-        <div class="absolute inset-0 bg-cover bg-center"
-            data-alt="Peaceful monastery at sunrise with mountains in background"
-            style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuDJqFURdwbJC9Hj8_0JHlnNyL0-D4cNuL9-qVVrfN-ANddfACnVPWoyiYeio552q73EeTcu954LsC5Y4xaDq1FBkfDyJbbi4G937uXqv_eIaAi91eZypw_rPD9PuT7xJqmHvuL5O1bqhX9079pANkR9w-3yQjZO_CVPn8QxEPvZCMMvuf_NYOBCB1xNiSccWigzjtCPStgz6IMjlRx1AnbwFjaw2zPvs0WPUAU4G6D4mQGZAbVObDGA6MGuQf6XFsNlxN30fjg1vmNr');">
-        </div>
-        <div class="relative flex h-full items-center justify-center px-6 text-center">
-            <div class="max-w-3xl">
-                <h1 class="text-5xl font-black text-white md:text-7xl mb-6">Welcome to उर्गेन सेङ छेलिङ गुम्बा</h1>
-                <p class="text-lg text-white/90 md:text-xl font-medium mb-10">A place of peace, meditation, and
-                    compassion in the heart of the mountains.</p>
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a class="w-full sm:w-auto rounded-xl bg-primary px-8 py-4 text-lg font-bold text-white hover:bg-primary/90 transition-all"
-                        href="#donate">Donate Now</a>
-                    <a class="w-full sm:w-auto rounded-xl bg-white/20 px-8 py-4 text-lg font-bold text-white backdrop-blur-md border border-white/30 hover:bg-white/30 transition-all"
-                        href="#contact">Visit the Gumba</a>
+            <div class="hero-content">
+                <div class="hero-inner">
+                    <img src="images/logo.png" alt="Gumba Logo" class="hero-logo" />
+                    <h1 class="hero-title">Welcome <br>to <br>ओर्गेन संङा क्ष्योएलिङ गुम्बा</h1>
+                    <p class="hero-desc">A place of peace, meditation, and compassion in the heart of the mountains.</p>
+                    <div class="hero-btns">
+                        <a class="btn btn-primary btn-lg" href="#donate">Donate Now</a>
+                        <a class="btn btn-outline-white btn-lg" href="#contact">Visit the Gumba</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- About Section -->
-    <section class="py-24 px-6 mx-auto max-w-7xl" id="about">
-        <div class="grid md:grid-cols-2 gap-16 items-center">
-            <div class="relative">
-                <div class="aspect-[4/5] rounded-xl bg-cover bg-center shadow-2xl"
-                    data-alt="Buddhist monks meditating in a temple"
-                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC_gezXtA5HFNmZ_Be-MHdGTF-KlwCkHTM5U0Pg0Yjm1wRrT7M0BTk2QpXcW3LBcg6yZv2mrP0D6yBiOsSVY7B70FqPw3ACaTfe53Dy-rxRO6CuiblvdieM1S7XB5vr8f49xpmE_gFQHr2Wy40-p3PEYhp_vUMj_9r2KVFnpdI4HphtueV-nAzj3L4vyOKL5J0PlQrYsRqlZtm3bmxh27vHATfHn6ehcwWGiggl0bnWCdQ3aBZHRi9TL8_3n0YBSIFmyj-R5oYD2k_d');">
+        </section>
+
+        <!-- About Section -->
+        <section class="py-24 px-6 container" id="about">
+            <div class="about-grid">
+                <div class="about-images">
+                    <div class="about-img-main clickable-img" data-alt="Buddha meditating under a tree"
+                        style="background-image: url('images/buddha.jpg');"
+                        onclick="openLightbox('images/buddha.jpg', 'Buddha meditating under a tree')">
+                    </div>
+                    <div class="about-img-accent clickable-img" data-alt="Orgen Sanga Gumba entrance gate"
+                        style="background-image: url('images/gate.jpg');"
+                        onclick="openLightbox('images/gate.jpg', 'Orgen Sanga Gumba entrance gate')">
+                    </div>
                 </div>
-                <div class="absolute -bottom-6 -right-6 h-48 w-48 rounded-xl border-8 border-background-light bg-cover bg-center shadow-xl"
-                    data-alt="Traditional Tibetan architecture details"
-                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBg6eRS9wCWi6bNMs6mnv7ycCJ-aeoaxU95pcYkWKFAvylUYEl3rF2y4DqnHnEpDV31EuJbyPzHgLCEBSHTWWV3wgamLxogTj0xpwHUftiNHwoTQkYnUoYsIcb1YGk-c8NB1Q4ss_7Qc1oIhWPBuwvSX50Pzl7UrdajYIgIAJdDeyIkwIA_9B4sXlWDq72Cqmarc44ME2S7byGuLlXCiAM6BHNHyH_dJLWZlwZkCJGDkhpQY2YlePMUE55-L0eG7lMNdSq5egxskx0x');">
-                </div>
-            </div>
-            <div class="space-y-8">
                 <div>
-                    <span class="text-primary font-bold uppercase tracking-widest text-sm">Our Monastery</span>
-                    <h2 class="text-4xl font-black mt-2">Mission &amp; Values</h2>
-                </div>
-                <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Rooted in ancient wisdom, our mission is to provide a sanctuary for spiritual growth, where the
-                    teachings of Lord Buddha are preserved and shared with all who seek inner peace.
-                </p>
-                <div class="grid sm:grid-cols-2 gap-6">
-                    <div class="p-6 rounded-xl bg-primary/5 border border-primary/10">
-                        <span class="material-symbols-outlined text-primary text-3xl mb-4">self_improvement</span>
-                        <h4 class="font-bold text-lg mb-2">Meditation</h4>
-                        <p class="text-sm text-slate-500">Cultivating mindfulness and awareness through daily practice.
-                        </p>
+                    <div class="mb-6">
+                        <span class="about-tag">Our Monastery</span>
+                        <h2 class="about-title">Mission &amp; Values</h2>
                     </div>
-                    <div class="p-6 rounded-xl bg-primary/5 border border-primary/10">
-                        <span class="material-symbols-outlined text-primary text-3xl mb-4">favorite</span>
-                        <h4 class="font-bold text-lg mb-2">Compassion</h4>
-                        <p class="text-sm text-slate-500">Dedicated to the service of all sentient beings with
-                            loving-kindness.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Daily Activities Section -->
-    <section class="bg-primary/5 py-24 px-6" id="activities">
-        <div class="mx-auto max-w-7xl">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-black">Daily Activities</h2>
-                <div class="lotus-divider my-8 max-w-xs mx-auto"></div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Activity Card 1 -->
-                <div
-                    class="group relative overflow-hidden rounded-xl bg-background-light dark:bg-background-dark p-8 shadow-sm transition-all hover:-translate-y-2 hover:shadow-xl">
-                    <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                        <span class="material-symbols-outlined">wb_twilight</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Morning Prayer</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Daily chanting and offerings at dawn to start the
-                        day with intention.</p>
-                    <p class="mt-4 text-xs font-bold text-primary">5:30 AM - 7:00 AM</p>
-                </div>
-                <!-- Activity Card 2 -->
-                <div
-                    class="group relative overflow-hidden rounded-xl bg-background-light dark:bg-background-dark p-8 shadow-sm transition-all hover:-translate-y-2 hover:shadow-xl">
-                    <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                        <span class="material-symbols-outlined">spa</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Meditation</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Guided sessions for beginners and advanced
-                        practitioners alike.</p>
-                    <p class="mt-4 text-xs font-bold text-primary">10:00 AM - 11:30 AM</p>
-                </div>
-                <!-- Activity Card 3 -->
-                <div
-                    class="group relative overflow-hidden rounded-xl bg-background-light dark:bg-background-dark p-8 shadow-sm transition-all hover:-translate-y-2 hover:shadow-xl">
-                    <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                        <span class="material-symbols-outlined">menu_book</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Dharma Teachings</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Lectures on Buddhist philosophy and psychology by
-                        resident Lamas.</p>
-                    <p class="mt-4 text-xs font-bold text-primary">2:00 PM - 4:00 PM</p>
-                </div>
-                <!-- Activity Card 4 -->
-                <div
-                    class="group relative overflow-hidden rounded-xl bg-background-light dark:bg-background-dark p-8 shadow-sm transition-all hover:-translate-y-2 hover:shadow-xl">
-                    <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                        <span class="material-symbols-outlined">groups</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Community Service</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Engaging in local projects and providing aid to
-                        those in need.</p>
-                    <p class="mt-4 text-xs font-bold text-primary">4:30 PM - 6:00 PM</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Events Section -->
-    <section class="py-24 px-6 mx-auto max-w-7xl" id="events">
-        <h2 class="text-4xl font-black mb-12">Upcoming Events</h2>
-        <div class="grid md:grid-cols-3 gap-8">
-            <div
-                class="group overflow-hidden rounded-xl border border-primary/10 hover:border-primary/30 transition-all">
-                <div class="h-48 bg-cover bg-center" data-alt="Traditional Buddhist festival lighting"
-                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBW30vxpf3xJH6bdN1c3Lin2W1pbYtz0E--kIF3uMyXbCmfsKjpMN1TMDHdm6fRrmFljUybXukdiLAXAeLWS5vRkayv6s2DEs9F3aDH9vXIxf-RjDnBRDBUX56D1HlExUTlCXXOJ3wrZewxcFzyEf4_IFdeSoxh3V3QPE8NMoFPLR1ys-M3-VVYfniU96rLdW451gbFpLjpGPEQTjcxg4hsd_FAeqQmp_O_syx32GWuUSp-pUiG3A3GLdv1glsLPQyEOMjvRnlX6Aa7');">
-                </div>
-                <div class="p-6">
-                    <div class="text-xs font-bold text-primary uppercase tracking-tighter mb-2">May 23, 2024</div>
-                    <h3 class="text-xl font-bold mb-2">Buddha Jayanti</h3>
-                    <p class="text-sm text-slate-500">Celebrating the birth, enlightenment, and parinirvana of Gautama
-                        Buddha with lanterns and prayer.</p>
-                </div>
-            </div>
-            <div
-                class="group overflow-hidden rounded-xl border border-primary/10 hover:border-primary/30 transition-all">
-                <div class="h-48 bg-cover bg-center" data-alt="Tibetan New Year celebrations"
-                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDzs7PMZWD0N6u4VUKcjEqPZJ-ocg_He0-DpNgWiZG_cQfDZV3uQiCLl-K58SDcJA6zCSA235lXGXqQGFZM70CcHQ9p5dfzbl_-3isZfe1igv5WQdwDY-EjclB33Rfp8R-tPEf4hu1xah1XAfUTqYKDyKfl7ZVts-yurVsY3ist0DtjHCurR5phlAglOMMRRgWa3fdff4MK4g87ZYxX03vdYNRV85JG1L_bs_rMrbRPMRNawgcXChOTHMd57Ajmycyg8fJfD1V_f7Mn');">
-                </div>
-                <div class="p-6">
-                    <div class="text-xs font-bold text-primary uppercase tracking-tighter mb-2">February 10, 2024</div>
-                    <h3 class="text-xl font-bold mb-2">Losar (Tibetan New Year)</h3>
-                    <p class="text-sm text-slate-500">Welcoming the Year of the Dragon with traditional dances, food,
-                        and family gatherings.</p>
-                </div>
-            </div>
-            <div
-                class="group overflow-hidden rounded-xl border border-primary/10 hover:border-primary/30 transition-all">
-                <div class="h-48 bg-cover bg-center" data-alt="Prayer ceremony at a Buddhist temple"
-                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBZ0IiyobxHXozz0YoNGfo6yutMfglMTjpABo8z449qdh4uvM9PqaLMnw6eDSG03nWrlAk038lEsKGJ0LoPzK86OlTd5UDk-EOJgCyM-AwMthBZ4rer6dBYJa4grgrzZ8yQDhRVqIk4H5sfht8JEe2lFgOuSM79u79fzE1sYiA6ASb5L42J44lS3p7gjgRLF7kzX2X4s-F47YKbtTR5nXey54fxAR6hDkY2g_5LS1svDz6_GDpfy5DSCVqwHMwyl9XfYMj1AQSuYXaC');">
-                </div>
-                <div class="p-6">
-                    <div class="text-xs font-bold text-primary uppercase tracking-tighter mb-2">Every Full Moon</div>
-                    <h3 class="text-xl font-bold mb-2">Special Prayer Ceremonies</h3>
-                    <p class="text-sm text-slate-500">Monthly gatherings for purification and merit-making rituals under
-                        the full moon.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Donation Section -->
-    <section class="py-24 px-6 bg-primary text-white" id="donate">
-        <div class="mx-auto max-w-5xl">
-            <div class="grid md:grid-cols-2 gap-16 items-center">
-                <div>
-                    <h2 class="text-4xl font-black mb-6">Support Our Sanctuary</h2>
-                    <p class="text-lg text-white/80 mb-8 leading-relaxed">
-                        Your donation supports spiritual practice, education, and preservation of Buddhist culture.
-                        Every contribution helps maintain our grounds and support the monks.
+                    <p class="about-desc mb-8">
+                        Rooted in ancient wisdom, our mission is to provide a sanctuary for spiritual growth, where the
+                        teachings of Lord Buddha are preserved and shared with all who seek inner peace.
                     </p>
-                    <div class="flex items-center gap-4 mb-8">
-                        <div class="flex -space-x-4">
-                            <div class="h-10 w-10 rounded-full border-2 border-primary bg-slate-300"></div>
-                            <div class="h-10 w-10 rounded-full border-2 border-primary bg-slate-400"></div>
-                            <div class="h-10 w-10 rounded-full border-2 border-primary bg-slate-500"></div>
+                    <div class="values-grid">
+                        <div class="value-card">
+                            <span class="material-symbols-outlined text-primary mb-4"
+                                style="font-size: 2rem;">self_improvement</span>
+                            <h4 class="font-bold mb-2" style="font-size: 1.125rem;">Meditation</h4>
+                            <p class="text-slate-500" style="font-size: 0.875rem;">Cultivating mindfulness and awareness
+                                through daily practice.</p>
                         </div>
-                        <span class="text-sm font-medium">Join 500+ monthly donors</span>
-                    </div>
-                </div>
-                <div class="bg-white rounded-2xl p-8 text-slate-900 shadow-2xl">
-                    <div class="mb-8 flex flex-wrap gap-2">
-                        <button
-                            class="flex-1 rounded-lg border-2 border-primary bg-primary/10 px-4 py-2 font-bold text-primary">$10</button>
-                        <button
-                            class="flex-1 rounded-lg border-2 border-slate-100 px-4 py-2 font-bold text-slate-500 hover:border-primary/20">$25</button>
-                        <button
-                            class="flex-1 rounded-lg border-2 border-slate-100 px-4 py-2 font-bold text-slate-500 hover:border-primary/20">$50</button>
-                        <button
-                            class="flex-1 rounded-lg border-2 border-slate-100 px-4 py-2 font-bold text-slate-500 hover:border-primary/20">$100</button>
-                    </div>
-                    <div class="space-y-4">
-                        <input class="w-full rounded-lg border-slate-200 focus:border-primary focus:ring-primary"
-                            placeholder="Custom Amount ($)" type="text" />
-                        <select class="w-full rounded-lg border-slate-200 focus:border-primary focus:ring-primary">
-                            <option>Purpose: Monastery Maintenance</option>
-                            <option>Monk Support</option>
-                            <option>Dharma Education</option>
-                            <option>Festival Funding</option>
-                        </select>
-                        <div class="grid grid-cols-2 gap-3 py-4">
-                            <button
-                                class="flex items-center justify-center rounded-lg border border-slate-200 p-3 hover:bg-slate-50 transition-colors">
-                                <span class="text-xs font-bold uppercase tracking-widest">eSewa</span>
-                            </button>
-                            <button
-                                class="flex items-center justify-center rounded-lg border border-slate-200 p-3 hover:bg-slate-50 transition-colors">
-                                <span class="text-xs font-bold uppercase tracking-widest">Khalti</span>
-                            </button>
-                            <button
-                                class="flex items-center justify-center rounded-lg border border-slate-200 p-3 hover:bg-slate-50 transition-colors">
-                                <span class="material-symbols-outlined text-xl">credit_card</span>
-                            </button>
-                            <button
-                                class="flex items-center justify-center rounded-lg border border-slate-200 p-3 hover:bg-slate-50 transition-colors">
-                                <span class="text-xs font-bold uppercase tracking-widest">PayPal</span>
-                            </button>
+                        <div class="value-card">
+                            <span class="material-symbols-outlined text-primary mb-4"
+                                style="font-size: 2rem;">favorite</span>
+                            <h4 class="font-bold mb-2" style="font-size: 1.125rem;">Compassion</h4>
+                            <p class="text-slate-500" style="font-size: 0.875rem;">Dedicated to the service of all
+                                sentient beings with loving-kindness.</p>
                         </div>
-                        <button
-                            class="w-full rounded-xl bg-primary py-4 text-lg font-bold text-white shadow-lg hover:bg-primary/90 transition-all">
-                            Donate Now
-                        </button>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- Gallery Section -->
-    <section class="py-24 px-6 mx-auto max-w-7xl" id="gallery">
-        <h2 class="text-4xl font-black mb-12 text-center">Gumba Gallery</h2>
-        <div class="masonry-grid">
-            <div class="masonry-item rounded-xl bg-cover bg-center" data-alt="Monks chanting inside the prayer hall"
-                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDIJIJoFY6R5P4slJUryRa2diOQTj4XWfhJHMh-CHeOum6Znkg8wFEtBN54PMmad5Ppto-8j9lSpF-fFCHwMYRx9b7-vy4dRcjdQ-EaO8CL885OzZuQno9yy6DywL_nZ8CxXDFTKdWtET5v_OA-06D3QApR9YMNShansJzDCywde2bcm1SYjwAuiXBBKoO-EbUIm890b4MiuIwrQz9kKVES_imuTtE4IwpoSFIrw9KrDr6PEzJnXGeXygL_ghsH-MsjLUH7NYmqGqoy');">
+        </section>
+
+        <!-- Events Section -->
+        <section class="py-24 px-6 container" id="events">
+            <h2 class="events-title">Upcoming Events</h2>
+            <div class="events-grid">
+                <div class="event-card">
+                    <div class="event-img" data-alt="Traditional Buddhist festival lighting"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBW30vxpf3xJH6bdN1c3Lin2W1pbYtz0E--kIF3uMyXbCmfsKjpMN1TMDHdm6fRrmFljUybXukdiLAXAeLWS5vRkayv6s2DEs9F3aDH9vXIxf-RjDnBRDBUX56D1HlExUTlCXXOJ3wrZewxcFzyEf4_IFdeSoxh3V3QPE8NMoFPLR1ys-M3-VVYfniU96rLdW451gbFpLjpGPEQTjcxg4hsd_FAeqQmp_O_syx32GWuUSp-pUiG3A3GLdv1glsLPQyEOMjvRnlX6Aa7');">
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">May 1, 2026</div>
+                        <h3 class="font-bold mb-2" style="font-size: 1.25rem;">Buddha Jayanti</h3>
+                        <p class="text-slate-500" style="font-size: 0.875rem;">Celebrating the birth, enlightenment, and
+                            parinirvana of Gautama
+                            Buddha with lanterns and prayer.</p>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <div class="event-img" data-alt="Tibetan New Year celebrations"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDzs7PMZWD0N6u4VUKcjEqPZJ-ocg_He0-DpNgWiZG_cQfDZV3uQiCLl-K58SDcJA6zCSA235lXGXqQGFZM70CcHQ9p5dfzbl_-3isZfe1igv5WQdwDY-EjclB33Rfp8R-tPEf4hu1xah1XAfUTqYKDyKfl7ZVts-yurVsY3ist0DtjHCurR5phlAglOMMRRgWa3fdff4MK4g87ZYxX03vdYNRV85JG1L_bs_rMrbRPMRNawgcXChOTHMd57Ajmycyg8fJfD1V_f7Mn');">
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">Paush 15, 2083</div>
+                        <h3 class="font-bold mb-2" style="font-size: 1.25rem;">Losar (Tibetan New Year)</h3>
+                        <p class="text-slate-500" style="font-size: 0.875rem;">Welcoming the Year of the Dragon with
+                            traditional dances, food,
+                            and family gatherings.</p>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <div class="event-img" data-alt="Prayer ceremony at a Buddhist temple"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBZ0IiyobxHXozz0YoNGfo6yutMfglMTjpABo8z449qdh4uvM9PqaLMnw6eDSG03nWrlAk038lEsKGJ0LoPzK86OlTd5UDk-EOJgCyM-AwMthBZ4rer6dBYJa4grgrzZ8yQDhRVqIk4H5sfht8JEe2lFgOuSM79u79fzE1sYiA6ASb5L42J44lS3p7gjgRLF7kzX2X4s-F47YKbtTR5nXey54fxAR6hDkY2g_5LS1svDz6_GDpfy5DSCVqwHMwyl9XfYMj1AQSuYXaC');">
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">Every Full Moon</div>
+                        <h3 class="font-bold mb-2" style="font-size: 1.25rem;">Special Prayer Ceremonies</h3>
+                        <p class="text-slate-500" style="font-size: 0.875rem;">Monthly gatherings for purification and
+                            merit-making rituals under
+                            the full moon.</p>
+                    </div>
+                </div>
             </div>
-            <div class="masonry-item rounded-xl bg-cover bg-center" data-alt="Golden Buddha statue in main hall"
-                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBZXLzCQAW3jfaHcTF8zdR9J--NZ_jyNe9NQcT5IJ_ZPoBpQGarSO3HsHYQXJ-7TGDqhyCuLAL9KYPeFohdjnuI1E-nmW0GL2NR5TOz8qqFhC42GyQipf4QuAb2CGWM7EB7zFEQLPtQyEw0THcC-YQRx7_z-177mVp2nOkZTJM0Zr1Zx04G5Dq9CjR0mC2dXmF311BWUsYfFyumG1rhXgMuOgN-aiE-IuNvYD5JA5npbjHat1xSdWHNnvGIAUiCsPg7lJrl5Kh6XwLp');">
+        </section>
+
+        <!-- Donation Section -->
+        <section class="donate-section" id="donate">
+            <div class="donate-container">
+                <h2 class="donate-title">Support Our Sanctuary</h2>
+                <p class="donate-desc">
+                    Your generous donation supports spiritual practice, education, and the preservation of Buddhist
+                    culture.
+                    Every contribution helps maintain our grounds and support the monks.
+                </p>
+
+                <div class="donate-box">
+                    <div class="donate-grid">
+                        <div>
+                            <h3 class="donate-subtitle">Bank Transfer</h3>
+                            <p class="donate-text"><strong>Bank:</strong> Nepal Bank Limited</p>
+                            <p class="donate-text"><strong>Acct Name:</strong> Orgen Sanga Chhoaling Gumba</p>
+                            <p class="donate-text"><strong>Acct No:</strong> 0000-0000-0000-0000</p>
+                        </div>
+                        <div>
+                            <h3 class="donate-subtitle">Digital Wallets</h3>
+                            <p class="donate-text"><strong>eSewa / Khalti:</strong></p>
+                            <p class="donate-number">+977 9845900667</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="donate-footer">
+                    For in-person donations or material support, please visit the monastery during visiting hours or
+                    contact
+                    us directly.
+                </p>
             </div>
-            <div class="masonry-item rounded-xl bg-cover bg-center" data-alt="Aerial view of the monastery grounds"
-                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBZpDbweV9pVaU35-82RU6waiGYeq12n0sw5qrmC8OuDjc2_KGCUME0DQz-JX0dizHNHwkGiGhfc2u7ArXZnGDU7r8EdHaw_wbUi8OXEJis1Zt-lT0cTrFVbU1v5kJz7PsGReOmJiUInPpf7uSYU9qSK3QcSCarGps_HaCkKdNnJxm_GM3HPUz5e5vhGTs_J2pGOnS6vprTwPSqGCvm4-vS4HEA8995d0VjEYxPqngLdhfN6tXdes0kjOo1KqaOeZSTN-MENTl3a-5Y');">
+        </section>
+        <!-- Gallery Section -->
+        <section class="py-24 px-6 container" id="gallery">
+            <h2 class="gallery-title">Gumba Gallery</h2>
+            <div class="masonry-grid">
+                <div class="masonry-item clickable-img" data-alt="Gumba general view"
+                    style="background-image: url('images/photo1.jpg');" onclick="openLightbox('images/photo1.jpg')">
+                </div>
+                <div class="masonry-item clickable-img" data-alt="Gumba building area"
+                    style="background-image: url('images/photo2.jpg');" onclick="openLightbox('images/photo2.jpg')">
+                </div>
+                <div class="masonry-item clickable-img" data-alt="Prayer wheels"
+                    style="background-image: url('images/photo3.jpg');" onclick="openLightbox('images/photo3.jpg')">
+                </div>
+                <div class="masonry-item clickable-img" data-alt="Gumba entry gate"
+                    style="background-image: url('images/photo4.jpg');" onclick="openLightbox('images/photo4.jpg')">
+                </div>
+                <div class="masonry-item clickable-img" data-alt="Prayer flags and grounds"
+                    style="background-image: url('images/photo5.jpg');" onclick="openLightbox('images/photo5.jpg')">
+                </div>
+                <div class="masonry-item clickable-img" data-alt="Buddha sitting under a tree"
+                    style="background-image: url('images/buddha.jpg');" onclick="openLightbox('images/buddha.jpg')">
+                </div>
             </div>
-            <div class="masonry-item rounded-xl bg-cover bg-center" data-alt="Buddhist monks in traditional robes"
-                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDoEV7gjKTMm597unD8h0Pfox23nM0ao6_vzJ_0Zp8ql_Ofue4qQ5J7f2P0u6ZuYNiZHyVi-Yn6WOZyzwYj-rvRo9k_eOKjS6z5vf4u24XliRUg1R0WqLR89Jfz8WmNC_bDHTIr9ibG4pObTDaXiYwMWpR0UOylsmsgW-tZTaam1jo6peLdzF-jslhM8sqiuWgG5Mx_kWXJ9FqW1vfEoCJ43OcZlkmhHbCSout8wtbCU06b0-7JIQbxkzJgvVdRMKg1qOzzFHb5e66S');">
-            </div>
-            <div class="masonry-item rounded-xl bg-cover bg-center" data-alt="Detail of intricate mandalas"
-                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDt0Y1eTI01BKGSzwFf96UP6PBuVTXEONjZhqVFA7MXH6OG4HCSyYrK2IFZhYQNo6JyxMVrULzksMfMWNlN6QefGTchSZMMN0tOAw6TRiQN7auMcP_Wu_frhdyPuPcchp3anT5nPvNf8PXoBkrclasVVgXWoFOIYjTXyHWSC1sIoLvv16lJAZqoUh7VD1Mn8dnpkWL_VqWRkPVUv3cLSWbrYGTj6bQqAmN-F4xGqaLdwbb6NcpNaKb_MZn6uMKLoYBT8xtsRj5CMkLV');">
-            </div>
-            <div class="masonry-item rounded-xl bg-cover bg-center" data-alt="Peaceful garden surrounding the gumba"
-                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCHD2_cRuISIyn8bBgF45BKyjKrIhoHW1zofzm5FJ_jsLm2gAn55NXdHcdTBuDBE8xW2OGREFpFDuohg2LNF-8CxwaRs2I1V8zevJW3wvA4z-0jcqXcojJzd4jXNpGyxdj2fWRRX7S8BEjLQauYTXOvpain0Hf20Hbg9UjYOnjxbtJIIeMaLEGJDZSuZw8_XWvlNhQ2gIEwJxDMdLuFb7QrMFlNhpK_ljqhZunYAtS-uWCB9QV1tm77p8WHecCSZv5FVgJPHX-0BuCT');">
-            </div>
-        </div>
-    </section>
-    <!-- Contact Section -->
-    <section class="bg-primary/5 py-24 px-6" id="contact">
-        <div class="mx-auto max-w-7xl">
-            <div class="grid lg:grid-cols-2 gap-16">
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="container contact-grid">
                 <div>
-                    <h2 class="text-4xl font-black mb-8">Get in Touch</h2>
-                    <div class="space-y-6 mb-12">
-                        <div class="flex items-start gap-4">
-                            <div
-                                class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <h2 class="contact-title">Get in Touch</h2>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
                                 <span class="material-symbols-outlined">location_on</span>
                             </div>
                             <div>
                                 <h4 class="font-bold">Our Location</h4>
-                                <p class="text-slate-500">123 Sangha Path, Kathmandu, Nepal</p>
+                                <p class="text-slate-500">Parasnagar Chowk, Bharatpur-6, Chitwan, Nepal</p>
                             </div>
                         </div>
-                        <div class="flex items-start gap-4">
-                            <div
-                                class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                        <div class="contact-item">
+                            <div class="contact-icon">
                                 <span class="material-symbols-outlined">call</span>
                             </div>
                             <div>
                                 <h4 class="font-bold">Phone</h4>
-                                <p class="text-slate-500">+977 1-4000000</p>
+                                <p class="text-slate-500">+977 9845900667</p>
                             </div>
                         </div>
-                        <div class="flex items-start gap-4">
-                            <div
-                                class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                        <div class="contact-item">
+                            <div class="contact-icon">
                                 <span class="material-symbols-outlined">mail</span>
                             </div>
                             <div>
                                 <h4 class="font-bold">Email</h4>
-                                <p class="text-slate-500">info@amitabhagumba.org</p>
+                                <p class="text-slate-500">sbgurung5125@gmail.com</p>
                             </div>
                         </div>
                     </div>
-                    <div class="h-64 w-full rounded-2xl overflow-hidden bg-slate-200">
+                    <div class="map-container">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3534.785111703193!2d84.38870567513317!3d27.631171228847688!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3994fa7c0be13979%3A0x50c557b9a20a5cd1!2sIndrapuri%20Gumba!5e0!3m2!1sen!2snp!4v1773475482144!5m2!1sen!2snp"
-                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
-                <div class="bg-background-light dark:bg-background-dark p-10 rounded-2xl shadow-xl">
-                    <form class="space-y-6">
-                        <div class="grid sm:grid-cols-2 gap-6">
-                            <div class="space-y-2">
-                                <label class="text-sm font-bold">Full Name</label>
-                                <input
-                                    class="w-full rounded-xl border-slate-200 focus:border-primary focus:ring-primary"
-                                    placeholder="Enter your name" type="text" />
+                <div class="contact-form">
+                    <form action="mailto:sbgurung5125@gmail.com" method="post" enctype="text/plain">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <input name="name" class="form-input" placeholder="Enter your name" type="text"
+                                    required />
                             </div>
-                            <div class="space-y-2">
-                                <label class="text-sm font-bold">Email Address</label>
-                                <input
-                                    class="w-full rounded-xl border-slate-200 focus:border-primary focus:ring-primary"
-                                    placeholder="name@example.com" type="email" />
+                            <div class="form-group">
+                                <label class="form-label">Email Address</label>
+                                <input name="email" class="form-input" placeholder="name@example.com" type="email"
+                                    required />
                             </div>
                         </div>
-                        <div class="space-y-2">
-                            <label class="text-sm font-bold">Subject</label>
-                            <input class="w-full rounded-xl border-slate-200 focus:border-primary focus:ring-primary"
-                                placeholder="How can we help?" type="text" />
+                        <div class="form-group">
+                            <label class="form-label">Subject</label>
+                            <input name="subject" class="form-input" placeholder="How can we help?" type="text" />
                         </div>
-                        <div class="space-y-2">
-                            <label class="text-sm font-bold">Message</label>
-                            <textarea class="w-full rounded-xl border-slate-200 focus:border-primary focus:ring-primary"
-                                placeholder="Write your message here..." rows="4"></textarea>
+                        <div class="form-group">
+                            <label class="form-label">Message</label>
+                            <textarea name="message" class="form-input" placeholder="Write your message here..."
+                                rows="4" required></textarea>
                         </div>
-                        <button
-                            class="w-full rounded-xl bg-primary py-4 font-bold text-white shadow-lg hover:shadow-primary/30 transition-all"
-                            type="submit">Send Message</button>
+                        <button class="btn btn-submit" type="submit">Send Message</button>
                     </form>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- Footer -->
-    <footer class="bg-background-dark text-slate-100 py-20 px-6">
-        <div class="mx-auto max-w-7xl">
-            <div class="grid md:grid-cols-4 gap-12 mb-16">
-                <div class="col-span-2">
-                    <div class="flex items-center gap-3 mb-6">
-                        <span class="material-symbols-outlined text-primary text-4xl">temple_buddhist</span>
-                        <h2 class="text-2xl font-bold tracking-tight">Amitabha Gumba</h2>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container footer-grid">
+                <div class="footer-col-main" style="grid-column: span 2;">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <img src="images/logo.png" alt="Gumba Logo" />
+                        </div>
+                        <h2 class="footer-title">ओर्गेन संङा क्ष्योएलिङ गुम्बा</h2>
                     </div>
-                    <p class="text-slate-400 max-w-sm mb-8 italic">
+                    <p class="footer-quote">
                         "May all beings be happy and free from suffering."
                     </p>
-                    <div class="flex gap-4">
-                        <a class="h-10 w-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-primary transition-colors"
-                            href="#">
-                            <span class="material-symbols-outlined text-lg">public</span>
+                    <div class="social-links">
+                        <a class="social-icon" href="https://www.facebook.com/share/18GKXH2QJL/?mibextid=wwXIfr"
+                            target="_blank">
+                            <span class="material-symbols-outlined">public</span>
                         </a>
-                        <a class="h-10 w-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-primary transition-colors"
-                            href="#">
-                            <span class="material-symbols-outlined text-lg">share</span>
+                        <a class="social-icon" style="cursor: pointer;"
+                            onclick="if(navigator.share) { navigator.share({title: 'Orgen Sanga Chhoaling Gumba', url: window.location.href}).catch(console.error); } else { alert('Web Share API is not supported in your browser.'); }">
+                            <span class="material-symbols-outlined">share</span>
                         </a>
-                        <a class="h-10 w-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-primary transition-colors"
-                            href="#">
-                            <span class="material-symbols-outlined text-lg">mail</span>
+                        <a class="social-icon" href="#contact">
+                            <span class="material-symbols-outlined">mail</span>
                         </a>
                     </div>
                 </div>
                 <div>
-                    <h4 class="font-bold mb-6 text-primary">Quick Links</h4>
-                    <ul class="space-y-4 text-slate-400">
-                        <li><a class="hover:text-white transition-colors" href="#">About Us</a></li>
-                        <li><a class="hover:text-white transition-colors" href="#">Daily Schedule</a></li>
-                        <li><a class="hover:text-white transition-colors" href="#">Upcoming Events</a></li>
-                        <li><a class="hover:text-white transition-colors" href="#">Volunteer</a></li>
+                    <h4 class="footer-nav-title">Quick Links</h4>
+                    <ul class="footer-nav-list">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#events">Upcoming Events</a></li>
+                        <li><a href="#contact">Volunteer</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-bold mb-6 text-primary">Support</h4>
-                    <ul class="space-y-4 text-slate-400">
-                        <li><a class="hover:text-white transition-colors" href="#">Donate</a></li>
-                        <li><a class="hover:text-white transition-colors" href="#">Sponsorship</a></li>
-                        <li><a class="hover:text-white transition-colors" href="#">Legacy Giving</a></li>
-                        <li><a class="hover:text-white transition-colors" href="#">FAQ</a></li>
+                    <h4 class="footer-nav-title">Support</h4>
+                    <ul class="footer-nav-list">
+                        <li><a href="#donate">Donate</a></li>
+                        <li><a href="#donate">Sponsorship</a></li>
+                        <li><a href="#donate">Legacy Giving</a></li>
+                        <li><a href="#contact">FAQ</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-white/5 pt-8 text-center text-sm text-slate-500">
-                <p>© 2024 Amitabha Gumba. All rights reserved. Registered Monastery #108.</p>
+            <div class="container footer-bottom">
+                <p>© 2024 Orgen Sanga Chhoaling Gumba. All rights reserved. Registered Monastery #108.</p>
+            </div>
+        </footer>
+        <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+            <span class="lightbox-close material-symbols-outlined">close</span>
+            <div class="lightbox-content" onclick="event.stopPropagation()">
+                <img id="lightbox-img" class="lightbox-img" src="" alt="Zoomed view" onclick="toggleZoom(event)">
             </div>
         </div>
-    </footer>
-</body>
+
+        <script>
+            function openLightbox(src) {
+                const lightbox = document.getElementById('lightbox');
+                const img = document.getElementById('lightbox-img');
+                img.src = src;
+                img.classList.remove('zoomed');
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+
+            function closeLightbox() {
+                const lightbox = document.getElementById('lightbox');
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto'; // Restore scrolling
+            }
+
+            function toggleZoom(e) {
+                e.target.classList.toggle('zoomed');
+                // If zooming in, we might want to center the click point
+                // For a simple version, we just toggle the class.
+            }
+
+            // Close on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeLightbox();
+            });
+        </script>
+    </body>
 
 </html>
