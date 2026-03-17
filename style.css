@@ -301,6 +301,7 @@ button {
 /* HEADER */
 .header {
   position: sticky;
+  padding-top: 10px;
   top: 0;
   z-index: 40;
   width: 100%;
@@ -360,6 +361,7 @@ button {
   position: relative;
   height: 85vh;
   width: 100%;
+  padding-top: 180px;
   overflow: hidden;
 }
 
@@ -642,9 +644,14 @@ button {
 }
 
 .masonry-item {
-  border-radius: var(--radius-xl);
+
+  position: relative;
   background-size: cover;
   background-position: center;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .masonry-item:nth-child(2n) {
@@ -653,6 +660,45 @@ button {
 
 .masonry-item:nth-child(3n) {
   grid-row: span 1.5;
+}
+
+/* Hover effect */
+.masonry-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark overlay */
+.masonry-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.masonry-item:hover::before {
+  opacity: 1;
+}
+
+/* Text from data-alt */
+.masonry-item::after {
+  content: attr(data-alt);
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  color: #fff;
+  font-size: 0.9rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.masonry-item:hover::after {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* CONTACT SECTION */

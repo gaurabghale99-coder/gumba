@@ -5,10 +5,11 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <link href="style.css" rel="stylesheet" />
-</head>
 
-<body>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+    <link href="style.css" rel="stylesheet" />
+
     <style>
         .lotus-divider {
             height: 2px;
@@ -42,10 +43,11 @@
             grid-row: span 1.5;
         }
     </style>
-    </head>
+</head>
 
-    <body
-        class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 selection:bg-primary/30">
+<body>
+
+    <body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 selection:bg-primary/30">
         <!-- Floating Donate Button -->
         <a class="floating-donate" href="#donate">
             <span class="material-symbols-outlined">volunteer_activism</span>
@@ -72,7 +74,7 @@
         <!-- Hero Section -->
         <section class="hero">
             <div class="hero-bg" data-alt="Peaceful monastery at sunrise with mountains in background"
-                style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuDJqFURdwbJC9Hj8_0JHlnNyL0-D4cNuL9-qVVrfN-ANddfACnVPWoyiYeio552q73EeTcu954LsC5Y4xaDq1FBkfDyJbbi4G937uXqv_eIaAi91eZypw_rPD9PuT7xJqmHvuL5O1bqhX9079pANkR9w-3yQjZO_CVPn8QxEPvZCMMvuf_NYOBCB1xNiSccWigzjtCPStgz6IMjlRx1AnbwFjaw2zPvs0WPUAU4G6D4mQGZAbVObDGA6MGuQf6XFsNlxN30fjg1vmNr');">
+                style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('images/parking.jpeg');">
             </div>
             <div class="hero-content">
                 <div class="hero-inner">
@@ -92,12 +94,12 @@
             <div class="about-grid">
                 <div class="about-images">
                     <div class="about-img-main clickable-img" data-alt="Buddha meditating under a tree"
-                        style="background-image: url('images/buddha.jpg');"
-                        onclick="openLightbox('images/buddha.jpg', 'Buddha meditating under a tree')">
+                        style="background-image: url('images/entrance.jpeg');"
+                        onclick="openLightbox('images/entrance.jpeg', 'Buddha meditating under a tree')">
                     </div>
                     <div class="about-img-accent clickable-img" data-alt="Orgen Sanga Gumba entrance gate"
-                        style="background-image: url('images/gate.jpg');"
-                        onclick="openLightbox('images/gate.jpg', 'Orgen Sanga Gumba entrance gate')">
+                        style="background-image: url('images/sideview.jpeg');"
+                        onclick="openLightbox('images/sideview.jpeg', 'Orgen Sanga Gumba entrance gate')">
                     </div>
                 </div>
                 <div>
@@ -209,23 +211,23 @@
         <section class="py-24 px-6 container" id="gallery">
             <h2 class="gallery-title">Gumba Gallery</h2>
             <div class="masonry-grid">
-                <div class="masonry-item clickable-img" data-alt="Gumba general view"
-                    style="background-image: url('images/photo1.jpg');" onclick="openLightbox('images/photo1.jpg')">
+                <div class="masonry-item clickable-img" data-alt="Gumba Entry gate"
+                    style="background-image: url('images/entrance.jpeg');" onclick="openLightbox('images/entrance.jpeg')">
                 </div>
                 <div class="masonry-item clickable-img" data-alt="Gumba building area"
-                    style="background-image: url('images/photo2.jpg');" onclick="openLightbox('images/photo2.jpg')">
+                    style="background-image: url('images/frontundergoing.jpeg');" onclick="openLightbox('images/frontundergoing.jpg')">
                 </div>
                 <div class="masonry-item clickable-img" data-alt="Prayer wheels"
-                    style="background-image: url('images/photo3.jpg');" onclick="openLightbox('images/photo3.jpg')">
+                    style="background-image: url('images/backside.jpeg');" onclick="openLightbox('images/backside.jpeg')">
                 </div>
-                <div class="masonry-item clickable-img" data-alt="Gumba entry gate"
-                    style="background-image: url('images/photo4.jpg');" onclick="openLightbox('images/photo4.jpg')">
+                <div class="masonry-item clickable-img" data-alt="Gumba general view"
+                    style="background-image: url('images/one.jpeg');" onclick="openLightbox('images/one.jpeg')">
                 </div>
                 <div class="masonry-item clickable-img" data-alt="Prayer flags and grounds"
-                    style="background-image: url('images/photo5.jpg');" onclick="openLightbox('images/photo5.jpg')">
+                    style="background-image: url('images/parking.jpeg');" onclick="openLightbox('images/parking.jpeg')">
                 </div>
-                <div class="masonry-item clickable-img" data-alt="Buddha sitting under a tree"
-                    style="background-image: url('images/buddha.jpg');" onclick="openLightbox('images/buddha.jpg')">
+                <div class="masonry-item clickable-img" data-alt="Beautiful pond"
+                    style="background-image: url('images/pokhari.jpeg');" onclick="openLightbox('images/pokhari.jpeg')">
                 </div>
             </div>
         </section>
@@ -382,6 +384,8 @@
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') closeLightbox();
             });
+
+           
         </script>
     </body>
 
