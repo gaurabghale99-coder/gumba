@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Admin Portal - Orgen Sanga Chhoaling Gumba</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+    <!-- Tailwind CSS v3 CDN and Configuration -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#7a1f1f',
+                            hover: '#912525',
+                        },
+                        'accent-gold': '#d4af37',
+                        'background-light': '#f8f6f6',
+                        'background-dark': '#1f1313',
+                    },
+                    fontFamily: {
+                        display: ['Manrope', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link href="style.css" rel="stylesheet" />
+
+    <!-- Supabase CDN Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        (function() {
+            emailjs.init("VkFQ0ggkK5sefF4Gu");
+        })();
+    </script>
+
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dark .glass-panel {
+            background: rgba(31, 19, 19, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-btn.active {
+            background-color: #7a1f1f;
+            color: #ffffff;
+            border-color: #d4af37;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+
+    <!-- Header Navigation -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-primary/10 dark:border-primary/20 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 flex items-center justify-between">
+            <div class="flex items-center gap-2 sm:gap-3">
+                <a href="index.html" class="flex items-center gap-2 sm:gap-3">
+                    <img src="images/logo.png" alt="Gumba Logo" class="h-10 w-10 sm:h-12 sm:w-12 object-contain rounded-full bg-white border-2 border-accent-gold" />
+                    <h1 class="text-primary dark:text-background-light font-bold text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl leading-tight">ओर्गेन संङा क्ष्योएलिङ गुम्बा</h1>
+                </a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="inline-flex items-center gap-1 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-primary dark:hover:text-accent-gold transition-colors">
+                    <span class="material-symbols-outlined text-lg">arrow_back</span>
+                    Back to Website
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow pt-24 pb-16 px-4 sm:px-6 max-w-7xl w-full mx-auto flex flex-col items-center justify-center">
+        
+        <!-- ================= LOGIN SCREEN ================= -->
+        <div id="login-container" class="w-full max-w-md p-8 rounded-3xl bg-white dark:bg-background-dark/45 border border-primary/10 dark:border-primary/20 shadow-2xl transition-all duration-500">
+            <div class="text-center mb-8">
+                <img src="images/logo.png" alt="Logo" class="h-20 w-20 mx-auto object-contain rounded-full border-2 border-accent-gold p-1 bg-white mb-4" />
+                <h2 class="text-2xl font-black text-slate-900 dark:text-white">Admin Authentication</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm mt-1">Please log in to access the control panel</p>
+            </div>
+
+            <form id="login-form" class="space-y-6" onsubmit="handleLogin(event)">
+                <div class="flex flex-col">
+                    <label class="text-xs sm:text-sm font-bold mb-2 text-slate-700 dark:text-slate-300">Admin Email</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3 top-3.5 text-slate-400 text-lg">mail</span>
+                        <input id="login-email" type="email" required value="urgenadmin@gmail.com"
+                            class="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-slate-50 dark:bg-background-dark/20 text-slate-900 dark:text-white pl-10 pr-4 p-3.5 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none" 
+                            placeholder="urgenadmin@gmail.com" />
+                    </div>
+                </div>
+
+                <div class="flex flex-col">
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">Password</label>
+                        <a href="#" onclick="showForgotPasswordForm()" class="text-xs text-primary hover:text-primary-hover font-semibold transition-colors">Forgot Password?</a>
+                    </div>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3 top-3.5 text-slate-400 text-lg">lock</span>
+                        <input id="login-password" type="password" required
+                            class="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-slate-50 dark:bg-background-dark/20 text-slate-900 dark:text-white pl-10 pr-12 p-3.5 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none" 
+                            placeholder="" />
+                        <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3 top-3.5 text-slate-400 hover:text-primary transition-colors focus:outline-none">
+                            <span id="eye-icon" class="material-symbols-outlined text-lg">visibility</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="login-error" class="text-red-600 dark:text-red-400 text-xs font-semibold hidden">
+                    Invalid email or password.
+                </div>
+
+
+                <button type="submit" 
+                    class="w-full inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-primary to-primary-hover text-white p-4 text-sm sm:text-base font-bold shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30">
+                    Log In
+                </button>
+            </form>
+            <!-- Forgot Password Form -->
+            <form id="forgot-password-form" class="space-y-6 hidden" onsubmit="handleSendResetCode(event)">
+                <div class="flex flex-col">
+                    <label class="text-xs sm:text-sm font-bold mb-2 text-slate-700 dark:text-slate-300">Admin Email</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3 top-3.5 text-slate-400 text-lg">mail</span>
+                        <input id="reset-email" type="email" required value="urgenadmin@gmail.com"
+                            class="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-slate-50 dark:bg-background-dark/20 text-slate-900 dark:text-white pl-10 pr-4 p-3.5 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none" />
+                    </div>
+                    <p class="text-[10px] text-slate-500 mt-2">A 6-digit confirmation code will be sent to this email.</p>
+                </div>
+
+                <div id="reset-email-error" class="text-red-600 dark:text-red-400 text-xs font-semibold hidden">
+                    Failed to send email. Check your connection.
+                </div>
+
+                <div class="flex flex-col gap-3">
+                    <button type="submit" id="btn-send-code"
+                        class="w-full inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-primary to-primary-hover text-white p-4 text-sm sm:text-base font-bold shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30">
+                        Send Reset Code
+                    </button>
+                    <button type="button" onclick="showLoginForm()"
+                        class="w-full text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-semibold transition-colors text-center">
+                        Back to Login
+                    </button>
+                </div>
+            </form>
+
+            <!-- Verify Code Form -->
+            <form id="verify-code-form" class="space-y-6 hidden" onsubmit="handleVerifyCode(event)">
+                <div class="flex flex-col">
+                    <label class="text-xs sm:text-sm font-bold mb-2 text-slate-700 dark:text-slate-300">6-Digit Code</label>
+                    <input id="reset-code-input" type="text" required maxlength="6" pattern="\d{6}"
+                        class="w-full text-center tracking-[0.5em] font-mono text-2xl rounded-xl border border-slate-250 dark:border-slate-800 bg-slate-50 dark:bg-background-dark/20 text-slate-900 dark:text-white p-3.5 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none" 
+                        placeholder="••••••" />
+                </div>
+
+                <div id="verify-code-error" class="text-red-600 dark:text-red-400 text-xs font-semibold hidden">
+                    Invalid or expired code.
+                </div>
+
+                <div class="flex flex-col gap-3">
+                    <button type="submit"
+                        class="w-full inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-primary to-primary-hover text-white p-4 text-sm sm:text-base font-bold shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30">
+                        Verify Code
+                    </button>
+                    <button type="button" onclick="showLoginForm()"
+                        class="w-full text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-semibold transition-colors text-center">
+                        Cancel Reset
+                    </button>
+                </div>
+            </form>
+
+            <!-- Reset Password Form -->
+            <form id="reset-password-form" class="space-y-6 hidden" onsubmit="handleSaveNewPassword(event)">
+                <div class="flex flex-col">
+                    <label class="text-xs sm:text-sm font-bold mb-2 text-slate-700 dark:text-slate-300">New Password</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3 top-3.5 text-slate-400 text-lg">lock</span>
+                        <input id="new-password" type="password" required minlength="6"
+                            class="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-slate-50 dark:bg-background-dark/20 text-slate-900 dark:text-white pl-10 pr-4 p-3.5 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none" />
+                    </div>
+                </div>
+
+                <div class="flex flex-col">
+                    <label class="text-xs sm:text-sm font-bold mb-2 text-slate-700 dark:text-slate-300">Confirm Password</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3 top-3.5 text-slate-400 text-lg">lock</span>
+                        <input id="confirm-new-password" type="password" required minlength="6"
+                            class="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-slate-50 dark:bg-background-dark/20 text-slate-900 dark:text-white pl-10 pr-4 p-3.5 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none" />
+                    </div>
+                </div>
+
+                <div id="reset-password-error" class="text-red-600 dark:text-red-400 text-xs font-semibold hidden">
+                    Passwords do not match.
+                </div>
+                
+                <div id="reset-password-success" class="text-emerald-600 dark:text-emerald-400 text-xs font-semibold hidden">
+                    Password updated successfully! Redirecting...
+                </div>
+
+                <div class="flex flex-col gap-3">
+                    <button type="submit"
+                        class="w-full inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-primary to-primary-hover text-white p-4 text-sm sm:text-base font-bold shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30">
+                        Save New Password
+                    </button>
+                    <button type="button" onclick="showLoginForm()"
+                        class="w-full text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-semibold transition-colors text-center">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+
+
+        <!-- ================= DASHBOARD SCREEN ================= -->
+        <div id="dashboard-container" class="w-full hidden flex flex-col md:flex-row gap-8 items-start">
+            
+            <!-- Side Navigation Links -->
+            <div class="w-full md:w-64 flex-shrink-0 flex flex-col gap-2 p-6 rounded-3xl bg-white dark:bg-background-dark/30 border border-primary/10 dark:border-primary/20 shadow-xl">
+                <div class="flex items-center gap-3 pb-6 mb-4 border-b border-primary/10">
+                    <img src="images/logo.png" alt="Logo" class="h-10 w-10 object-contain rounded-full bg-white border border-accent-gold" />
+                    <div>
+                        <h3 class="font-bold text-slate-900 dark:text-white leading-tight text-sm">Gumba Admin</h3>
+                        <span class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
+                            <span class="h-2 w-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span> Authorized Session
+                        </span>
+                    </div>
+                </div>
+                
+                <button onclick="switchTab('events')" id="btn-events" class="tab-btn flex items-center gap-3 w-full p-3 rounded-xl text-left font-semibold text-sm transition-all hover:bg-primary/5 hover:text-primary dark:hover:bg-primary/10 border border-transparent">
+                    <span class="material-symbols-outlined text-lg">event_note</span>
+                    Manage Events
+                </button>
+                <button onclick="switchTab('gallery')" id="btn-gallery" class="tab-btn flex items-center gap-3 w-full p-3 rounded-xl text-left font-semibold text-sm transition-all hover:bg-primary/5 hover:text-primary dark:hover:bg-primary/10 border border-transparent">
+                    <span class="material-symbols-outlined text-lg">photo_library</span>
+                    Manage Gallery
+                </button>
+                <button onclick="switchTab('donation')" id="btn-donation" class="tab-btn flex items-center gap-3 w-full p-3 rounded-xl text-left font-semibold text-sm transition-all hover:bg-primary/5 hover:text-primary dark:hover:bg-primary/10 border border-transparent">
+                    <span class="material-symbols-outlined text-lg">volunteer_activism</span>
+                    Donation Details
+                </button>
+                <button onclick="switchTab('contact')" id="btn-contact" class="tab-btn flex items-center gap-3 w-full p-3 rounded-xl text-left font-semibold text-sm transition-all hover:bg-primary/5 hover:text-primary dark:hover:bg-primary/10 border border-transparent">
+                    <span class="material-symbols-outlined text-lg">contact_page</span>
+                    Contact Details
+                </button>
+
+                <button onclick="handleLogout()" class="mt-8 flex items-center gap-3 w-full p-3 rounded-xl text-left font-semibold text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 transition-all border border-transparent">
+                    <span class="material-symbols-outlined text-lg">logout</span>
+                    Log Out
+                </button>
+            </div>
+
+            <!-- Tab Content Viewport -->
+            <div class="flex-grow w-full bg-white dark:bg-background-dark/30 border border-primary/10 dark:border-primary/20 rounded-3xl p-6 sm:p-8 shadow-xl">
+                
+                <!-- Tab: Events -->
+                <div id="tab-events" class="tab-content hidden space-y-6">
+                    <div class="flex items-center justify-between border-b border-primary/10 pb-4">
+                        <div>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">Upcoming Events</h2>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm">Add, modify, or remove Gumba events</p>
+                        </div>
+                        <button onclick="openEventModal()" class="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-primary-hover text-white px-4 py-2.5 text-xs sm:text-sm font-bold shadow-md hover:-translate-y-0.5 transition-all">
+                            <span class="material-symbols-outlined text-sm">add</span> Add New Event
+                        </button>
+                    </div>
+
+                    <!-- Events list -->
+                    <div id="admin-events-list" class="grid grid-cols-1 gap-4">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Tab: Gallery -->
+                <div id="tab-gallery" class="tab-content hidden space-y-6">
+                    <div class="flex items-center justify-between border-b border-primary/10 pb-4">
+                        <div>
+                            <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">Gumba Gallery</h2>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm">Manage the photos displayed in the gallery</p>
+                        </div>
+                        <button onclick="openGalleryModal()" class="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-primary-hover text-white px-4 py-2.5 text-xs sm:text-sm font-bold shadow-md hover:-translate-y-0.5 transition-all">
+                            <span class="material-symbols-outlined text-sm">add_photo_alternate</span> Add Photo
+                        </button>
+                    </div>
+
+                    <!-- Gallery grid -->
+                    <div id="admin-gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Tab: Donation Details -->
+                <div id="tab-donation" class="tab-content hidden space-y-6">
+                    <div class="border-b border-primary/10 pb-4">
+                        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">Donation Settings</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm">Update bank transfer details and mobile wallet numbers</p>
+                    </div>
+
+                    <form id="donation-form" onsubmit="saveDonation(event)" class="space-y-6 max-w-xl">
+                        <div class="space-y-4">
+                            <h3 class="font-bold text-slate-800 dark:text-slate-200 border-l-4 border-accent-gold pl-2">Bank Transfer Details</h3>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="flex flex-col">
+                                    <label class="text-xs font-bold mb-2 text-slate-700 dark:text-slate-300">Bank Name</label>
+                                    <select id="bank-name" required
+                                        class="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-slate-50 dark:bg-background-dark/20 text-slate-900 dark:text-white p-3.5 text-sm focus:border-primary outline-none">
+                                        <option value="">-- Select Bank --</option>
+                                        <option value="Agriculture Development Bank Limited">Agriculture Development Bank Limited (ADBL)</option>
+                                        <option value="Citizens Bank International Limited">Citizens Bank International Limited</option>
+                                        <option value="Everest Bank Limited">Everest Bank Limited</option>
+                                        <option value="Garima Bikas Bank Limited">Garima Bikas Bank Limited</option>
+                                        <option value="Global IME Bank Limited">Global IME Bank Limited</option>
+                                        <option value="Himalayan Bank Limited">Himalayan Bank Limited</option>
+                                        <option value="Jyoti Bikash Bank Limited">Jyoti Bikash Bank Limited</option>
+                                        <option value="Kamana Sewa Bikas Bank Limited">Kamana Sewa Bikas Bank Limited</option>
+                                        <option value="Kumari Bank Limited">Kumari Bank Limited</option>
+                                        <option value="Laxmi Sunrise Bank Limited">Laxmi Sunrise Bank Limited</option>
+                                        <option value="Lumbini Bikas Bank Limited">Lumbini Bikas Bank Limited</option>
+                                        <option value="Machhapuchchhre Bank Limited">Machhapuchchhre Bank Limited</option>
+                                        <option value="Mahalaxmi Bikas Bank Limited">Mahalaxmi Bikas Bank Limited</option>
+                                        <option value="Muktinath Bikas Bank Limited">Muktinath Bikas Bank Limited</option>
+                                        <option value="Nabil Bank Limited">Nabil Bank Limited</option>
+                                        <option value="Nepal Bank Limited">Nepal Bank Limited</option>
+                                        <option value="Nepal Investment Mega Bank Limited">Nepal Investment Mega Bank Limited</option>
+                                        <option value="Nepal SBI Bank Limited">Nepal SBI Bank Limited</option>
+                                        <option value="NIC Asia Bank Limited">NIC Asia Bank Limited</option>
+                                        <option value="Prabhu Bank Limited">Prabhu Bank Limited</option>
+                                        <option value="Prime Commercial Bank Limited">Prime Commercial Bank Limited</option>
+                                        <option value="Rastriya Banijya Bank Limited">Rastriya Banijya Bank Limited (RBB)</option>
+                                        <option value="Sanima Bank Limited">Sanima Bank Limited</option>
+                                        <option value="Shangri-la Development Bank Limited">Shangri-la Development Bank Limited</option>
+                                        <option value="Shine Resunga Development Bank Limited">Shine Resunga Development Bank Limited</option>
+                                        <option value="Siddhartha Bank Limited">Siddhartha Bank Limited</option>
+                                        <option value="Standard Chartered Bank Nepal Limited">Standard Chartered Bank Nepal Limited</option>
+                                    </select>
+                                </div>
+                                <div class="flex flex-col">
+                                    <label class="text-xs font-bold mb-2 text-slate-700 dark:text-slate-300">Account Holder Name</label>
+                                    <input id="bank-acc-name" type="text" required
+                                        class="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-slate-50 dark:bg-background-dark/20 text-slate-900 dark:text-white p-3 text-sm focus:border-primary outline-none" />
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label class="text-xs font-bold mb-2 text-slate-700 dark:text-slate-300">Account Number</label>
+                                <input id="bank-acc-no" type="text" required
+                                    class="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-slate-50 dark:bg-background-dark/20 text-slate-900 dark:text-white p-3 text-sm focus:border-primary outline-none" />
+                            </div>
+                        </div>
+
+                        <div class="space-y-4 pt-4 border-t border-primary/10">
+                            <h3 class="font-bold text-slate-800 dark:text-slate-200 border-l-4 border-accent-gold pl-2">Digital Wallet Details</h3>
+                            
+                            <div class="flex flex-col">
+                                <label class="text-xs font-bold mb-2 text-slate-700 dark:text-slate-300">eSewa / Khalti Mobile Number</label>
+                                <input id="wallet-no" type="text" required
+                                    class="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-slate-50 dark:bg-background-dark/20 text-slate-900 dark:text-white p-3 text-sm focus:border-primary outline-none" />
+                            </div>
+                        </div>
+
+                        <div class="space-y-4 pt-4 border-t border-primary/10">
+                            <h3 class="font-bold text-slate-800 dark:text-slate-200 border-l-4 border-accent-gold pl-2">Donation QR Code</h3>
+                            
+                            <div class="flex flex-col gap-3">
+                                <label class="text-xs font-bold text-slate-700 dark:text-slate-300">QR Code Image</label>
+                                
+                                <div class="flex flex-wrap items-center gap-4">
+                                    <label for="donation-qr-file" class="cursor-pointer inline-flex items-center gap-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-white px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors">
+                                        <span class="material-symbols-outlined text-base">upload_file</span> Choose from Device
+                                    </label>
+                                    <input type="file" id="donation-qr-file" accept="image/*" class="hidden" onchange="handleQrUpload(event)" />
+                                    <span id="qr-upload-name" class="text-xs text-slate-500 font-medium">No file chosen</span>
+                                </div>
+
+                                <input id="donation-qr" type="text" oninput="updateQrPreview()"
+                                    class="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-slate-50 dark:bg-background-dark/20 text-slate-900 dark:text-white p-3 text-sm focus:border-primary outline-none" 
+                                    placeholder="Or paste an image link URL here..." />
+                                
+                                <div id="qr-preview-container" class="hidden mt-2">
+                                    <p class="text-xs font-bold mb-2 text-slate-500">Preview:</p>
+                                    <div class="relative inline-block">
+                                        <img id="qr-preview-img" src="" class="w-32 h-32 object-contain border border-slate-200 dark:border-slate-700 rounded-lg p-2 bg-white" />
+                                        <button type="button" onclick="clearImage('donation-qr', 'donation-qr-file', 'qr-upload-name', updateQrPreview)" 
+                                            class="absolute top-1 right-1 bg-red-600/90 hover:bg-red-700 text-white rounded-full h-6 w-6 flex items-center justify-center shadow-md transition-colors backdrop-blur-sm">
+                                            <span class="material-symbols-outlined text-[14px] font-bold">close</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <p class="text-[10px] text-slate-500">Leave empty to hide the QR code from visitors.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3 pt-4">
+                            <button type="submit" 
+                                class="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-primary to-primary-hover text-white px-6 py-3 text-sm font-bold shadow-md hover:-translate-y-0.5 transition-all">
+                                Save Donation Details
+                            </button>
+                            <span id="donation-save-success" class="text-emerald-600 dark:text-emerald-400 text-xs font-semibold hidden flex items-center gap-1">
+                                <span class="material-symbols-outlined text-base">check_circle</span> Saved successfully!
+                            </span>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Tab: Contact -->
+                <div id="tab-contact" class="tab-content hidden space-y-6">
+                    <div class="border-b border-primary/10 pb-4">
+                        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">Contact Settings</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm">Update location, phone, email, and Google Maps embed.</p>
+                    </div>
+
+                    <form id="contact-form" onsubmit="saveContact(event)" class="space-y-6 max-w-xl">
+                        <div class="space-y-4">
+                            <div class="flex flex-col">
+                                <label class="text-xs font-bold mb-2 text-slate-700 dark:text-slate-300">Location</label>
+                                <input id="contact-location" type="text" required
+                                    class="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-slate-50 dark:bg-background-dark/20 text-slate-900 dark:text-white p-3 text-sm focus:border-primary outline-none" />
+                            </div>
+                            <div class="flex flex-col">
+                                <label class="text-xs font-bold mb-2 text-slate-700 dark:text-slate-300">Phone</label>
+                                <input id="contact-phone" type="text" required
+                                    class="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-slate-50 dark:bg-background-dark/20 text-slate-900 dark:text-white p-3 text-sm focus:border-primary outline-none" />
+                            </div>
+                            <div class="flex flex-col">
+                                <label class="text-xs font-bold mb-2 text-slate-700 dark:text-slate-300">Email</label>
+                                <input id="contact-email" type="email" required
+                                    class="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-slate-50 dark:bg-background-dark/20 text-slate-900 dark:text-white p-3 text-sm focus:border-primary outline-none" />
+                            </div>
+                            <div class="flex flex-col">
+                                <label class="text-xs font-bold mb-2 text-slate-700 dark:text-slate-300">Google Map Embed URL (src)</label>
+                                <input id="contact-map" type="text" required
+                                    class="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-slate-50 dark:bg-background-dark/20 text-slate-900 dark:text-white p-3 text-sm focus:border-primary outline-none" />
+                                <p class="text-[10px] text-slate-500 mt-1">Go to Google Maps -> Share -> Embed a map -> Copy HTML. Only paste the src="url" link here.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3 pt-4">
+                            <button type="submit" 
+                                class="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-primary to-primary-hover text-white px-6 py-3 text-sm font-bold shadow-md hover:-translate-y-0.5 transition-all">
+                                Save Contact Details
+                            </button>
+                            <span id="contact-save-success" class="text-emerald-600 dark:text-emerald-400 text-xs font-semibold hidden flex items-center gap-1">
+                                <span class="material-symbols-outlined text-base">check_circle</span> Saved successfully!
+                            </span>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ================= MODALS ================= -->
+
+    <!-- Event Form Modal -->
+    <div id="event-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-background-dark/95 border border-primary/20 w-full max-w-lg rounded-3xl p-6 sm:p-8 shadow-2xl transform scale-95 transition-all duration-300">
+            <div class="flex items-center justify-between border-b border-primary/10 pb-4 mb-6">
+                <h3 id="event-modal-title" class="text-lg sm:text-xl font-black text-slate-900 dark:text-white">Add New Event</h3>
+                <button onclick="closeEventModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors">
+                    <span class="material-symbols-outlined text-2xl">close</span>
+                </button>
+            </div>
+
+            <form id="event-form" onsubmit="saveEvent(event)" class="space-y-4">
+                <input type="hidden" id="event-id" />
+
+                <div class="flex flex-col">
+                    <label class="text-xs font-bold mb-2 text-slate-700 dark:text-slate-300">Event Title</label>
+                    <input id="event-title" type="text" required placeholder="e.g., Buddha Jayanti"
+                        class="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-slate-50 dark:bg-background-dark/20 text-slate-900 dark:text-white p-3 text-sm focus:border-primary outline-none" />
+                </div>
+
+                <div class="flex flex-col">
+                    <label class="text-xs font-bold mb-2 text-slate-700 dark:text-slate-300">Date / Occasion</label>
+                    <input id="event-date" type="text" required placeholder="e.g., May 1, 2026 or Every Full Moon"
+                        class="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-slate-50 dark:bg-background-dark/20 text-slate-900 dark:text-white p-3 text-sm focus:border-primary outline-none" />
+                </div>
+
+                <div class="flex flex-col">
+                    <label class="text-xs font-bold mb-2 text-slate-700 dark:text-slate-300">Image Source</label>
+                    <div class="flex flex-col gap-3">
+                        <div class="flex flex-wrap items-center gap-4">
+                            <label for="event-img-file" class="cursor-pointer inline-flex items-center gap-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-white px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors">
+                                <span class="material-symbols-outlined text-base">upload_file</span> Choose from Device
+                            </label>
+                            <input type="file" id="event-img-file" accept="image/*" class="hidden" onchange="handleEventImgUpload(event)" />
+                            <span id="event-upload-name" class="text-xs text-slate-500 font-medium">No file chosen</span>
+                        </div>
+
+                        <input id="event-img-url" type="text" oninput="updateEventImgPreview()" required
+                            class="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-slate-50 dark:bg-background-dark/20 text-slate-900 dark:text-white p-3 text-sm focus:border-primary outline-none" 
+                            placeholder="Or paste an image link URL here..." />
+                        
+                        <div id="event-preview-container" class="hidden mt-2">
+                            <p class="text-xs font-bold mb-2 text-slate-500">Preview:</p>
+                            <div class="relative inline-block w-full">
+                                <img id="event-preview-img" src="" class="w-full h-32 object-cover border border-slate-200 dark:border-slate-700 rounded-lg p-1 bg-white" />
+                                <button type="button" onclick="clearImage('event-img-url', 'event-img-file', 'event-upload-name', updateEventImgPreview)" 
+                                    class="absolute top-2 right-2 bg-red-600/90 hover:bg-red-700 text-white rounded-full h-8 w-8 flex items-center justify-center shadow-lg transition-colors backdrop-blur-sm">
+                                    <span class="material-symbols-outlined text-sm font-bold">close</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col">
+                    <label class="text-xs font-bold mb-2 text-slate-700 dark:text-slate-300">Description / Schedule Details</label>
+                    <textarea id="event-desc" required placeholder="Write a short description..." rows="3"
+                        class="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-slate-50 dark:bg-background-dark/20 text-slate-900 dark:text-white p-3 text-sm focus:border-primary outline-none"></textarea>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-4 border-t border-primary/10">
+                    <button type="button" onclick="closeEventModal()" 
+                        class="px-4 py-2.5 rounded-xl border border-slate-250 dark:border-slate-700 text-xs sm:text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                        Cancel
+                    </button>
+                    <button type="submit" 
+                        class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-primary to-primary-hover text-white text-xs sm:text-sm font-bold shadow-md hover:-translate-y-0.5 transition-all">
+                        Save Event
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Gallery Form Modal -->
+    <div id="gallery-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-background-dark/95 border border-primary/20 w-full max-w-lg rounded-3xl p-6 sm:p-8 shadow-2xl transform scale-95 transition-all duration-300">
+            <div class="flex items-center justify-between border-b border-primary/10 pb-4 mb-6">
+                <h3 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white">Add New Photo to Gallery</h3>
+                <button onclick="closeGalleryModal()" class="text-slate-400 hover:text-slate-650 dark:hover:text-white transition-colors">
+                    <span class="material-symbols-outlined text-2xl">close</span>
+                </button>
+            </div>
+
+            <form id="gallery-form" onsubmit="saveGallery(event)" class="space-y-4">
+                <div class="flex flex-col">
+                    <label class="text-xs font-bold mb-2 text-slate-700 dark:text-slate-300">Image Source</label>
+                    <div class="flex flex-col gap-3">
+                        <div class="flex flex-wrap items-center gap-4">
+                            <label for="gallery-img-file" class="cursor-pointer inline-flex items-center gap-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-white px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors">
+                                <span class="material-symbols-outlined text-base">upload_file</span> Choose from Device
+                            </label>
+                            <input type="file" id="gallery-img-file" accept="image/*" class="hidden" onchange="handleGalleryImgUpload(event)" />
+                            <span id="gallery-upload-name" class="text-xs text-slate-500 font-medium">No file chosen</span>
+                        </div>
+
+                        <input id="gallery-img-url" type="text" oninput="updateGalleryImgPreview()" required
+                            class="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-slate-50 dark:bg-background-dark/20 text-slate-900 dark:text-white p-3 text-sm focus:border-primary outline-none" 
+                            placeholder="Or paste an image link URL here..." />
+                        
+                        <div id="gallery-preview-container" class="hidden mt-2">
+                            <p class="text-xs font-bold mb-2 text-slate-500">Preview:</p>
+                            <div class="relative inline-block w-full">
+                                <img id="gallery-preview-img" src="" class="w-full h-32 object-cover border border-slate-200 dark:border-slate-700 rounded-lg p-1 bg-white" />
+                                <button type="button" onclick="clearImage('gallery-img-url', 'gallery-img-file', 'gallery-upload-name', updateGalleryImgPreview)" 
+                                    class="absolute top-2 right-2 bg-red-600/90 hover:bg-red-700 text-white rounded-full h-8 w-8 flex items-center justify-center shadow-lg transition-colors backdrop-blur-sm">
+                                    <span class="material-symbols-outlined text-sm font-bold">close</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col">
+                    <label class="text-xs font-bold mb-2 text-slate-700 dark:text-slate-300">Photo Caption / Description</label>
+                    <input id="gallery-alt" type="text" required placeholder="e.g., Prayer flags and grounds"
+                        class="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-slate-50 dark:bg-background-dark/20 text-slate-900 dark:text-white p-3 text-sm focus:border-primary outline-none" />
+                </div>
+
+                <div class="flex justify-end gap-3 pt-4 border-t border-primary/10">
+                    <button type="button" onclick="closeGalleryModal()" 
+                        class="px-4 py-2.5 rounded-xl border border-slate-250 dark:border-slate-700 text-xs sm:text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                        Cancel
+                    </button>
+                    <button type="submit" 
+                        class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-primary to-primary-hover text-white text-xs sm:text-sm font-bold shadow-md hover:-translate-y-0.5 transition-all">
+                        Add Photo
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-b from-[#190d0d] to-black text-slate-400 py-6 px-4 sm:px-6 border-t-2 border-accent-gold text-center text-xs">
+        <p>© 2024 Orgen Sanga Chhoaling Gumba. Admin Portal System. All changes strictly audited.</p>
+    </footer>
+
+
+    <!-- ================= JAVASCRIPT SYSTEM ================= -->
+    <script>
+        // Fallback default configurations
+        const fallbackDefaultData = {
+            contact: {
+                location: "Parasnagar Chowk, Bharatpur-6, Chitwan, Nepal",
+                phone: "+977 9845900667",
+                email: "sbgurung5125@gmail.com",
+                mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3534.785111703193!2d84.38870567513317!3d27.631171228847688!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3994fa7c0be13979%3A0x50c557b9a20a5cd1!2sIndrapuri%20Gumba!5e0!3m2!1sen!2snp!4v1773475482144!5m2!1sen!2snp"
+            },
+            donation: {
+                bankName: "Nepal Bank Limited",
+                accountName: "Orgen Sanga Chhoaling Gumba",
+                accountNo: "0000-0000-0000-0000",
+                walletNo: "+977 9845900667"
+            },
+            events: [
+                {
+                    id: "event-1",
+                    date: "May 1, 2026",
+                    title: "Buddha Jayanti",
+                    description: "Celebrating the birth, enlightenment, and parinirvana of Gautama Buddha with lanterns and prayer.",
+                    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBW30vxpf3xJH6bdN1c3Lin2W1pbYtz0E--kIF3uMyXbCmfsKjpMN1TMDHdm6fRrmFljUybXukdiLAXAeLWS5vRkayv6s2DEs9F3aDH9vXIxf-RjDnBRDBUX56D1HlExUTlCXXOJ3wrZewxcFzyEf4_IFdeSoxh3V3QPE8NMoFPLR1ys-M3-VVYfniU96rLdW451gbFpLjpGPEQTjcxg4hsd_FAeqQmp_O_syx32GWuUSp-pUiG3A3GLdv1glsLPQyEOMjvRnlX6Aa7"
+                },
+                {
+                    id: "event-2",
+                    date: "Paush 15, 2083",
+                    title: "Losar (Tibetan New Year)",
+                    description: "Welcoming the Year of the Dragon with traditional dances, food, and family gatherings.",
+                    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDzs7PMZWD0N6u4VUKcjEqPZJ-ocg_He0-DpNgWiZG_cQfDZV3uQiCLl-K58SDcJA6zCSA235lXGXqQGFZM70CcHQ9p5dfzbl_-3isZfe1igv5WQdwDY-EjclB33Rfp8R-tPEf4hu1xah1XAfUTqYKDyKfl7ZVts-yurVsY3ist0DtjHCurR5phlAglOMMRRgWa3fdff4MK4g87ZYxX03vdYNRV85JG1L_bs_rMrbRPMRNawgcXChOTHMd57Ajmycyg8fJfD1V_f7Mn"
+                },
+                {
+                    id: "event-3",
+                    date: "Every Full Moon",
+                    title: "Special Prayer Ceremonies",
+                    description: "Monthly gatherings for purification and merit-making rituals under the full moon.",
+                    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBZ0IiyobxHXozz0YoNGfo6yutMfglMTjpABo8z449qdh4uvM9PqaLMnw6eDSG03nWrlAk038lEsKGJ0LoPzK86OlTd5UDk-EOJgCyM-AwMthBZ4rer6dBYJa4grgrzZ8yQDhRVqIk4H5sfht8JEe2lFgOuSM79u79fzE1sYiA6ASb5L42J44lS3p7gjgRLF7kzX2X4s-F47YKbtTR5nXey54fxAR6hDkY2g_5LS1svDz6_GDpfy5DSCVqwHMwyl9XfYMj1AQSuYXaC"
+                }
+            ],
+            gallery: [
+                { id: "gal-1", alt: "Gumba Entry gate", image: "images/entrance.jpeg" },
+                { id: "gal-2", alt: "Gumba building area", image: "images/frontundergoing.jpeg" },
+                { id: "gal-3", alt: "Prayer wheels", image: "images/backside.jpeg" },
+                { id: "gal-4", alt: "Gumba general view", image: "images/one.jpeg" },
+                { id: "gal-5", alt: "Prayer flags and grounds", image: "images/parking.jpeg" },
+                { id: "gal-6", alt: "Beautiful pond", image: "images/pokhari.jpeg" }
+            ]
+        };
+
+        let currentData = fallbackDefaultData;
+
+        // === SUPABASE_CONFIG_START ===
+        const SUPABASE_CONFIG = {
+            url: "https://zzvipadduhwjxtkyjyws.supabase.co",
+            key: "sb_publishable_NFRenyscLx5IsCGvjHSpQg_wjAsOs4W"
+        };
+        // === SUPABASE_CONFIG_END ===
+
+        let supabaseClient = null;
+        if (SUPABASE_CONFIG.url && SUPABASE_CONFIG.key) {
+            try {
+                supabaseClient = supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.key);
+            } catch (e) {
+                console.error("Failed to initialize Supabase client:", e);
+            }
+        }
+
+        // Initialize localStorage if empty, otherwise read (with Supabase sync)
+        async function loadGumbaData() {
+            if (supabaseClient) {
+                try {
+                    const { data: dbData, error } = await supabaseClient
+                        .from('gumba_data')
+                        .select('content')
+                        .eq('id', 'main')
+                        .single();
+                    
+                    if (error) {
+                        console.warn("Supabase fetch error, falling back to local memory:", error);
+                        loadLocalStorageFallback();
+                    } else if (dbData && dbData.content) {
+                        currentData = dbData.content;
+                    }
+                } catch (e) {
+                    console.error("Failed to fetch from Supabase, falling back to local:", e);
+                    loadLocalStorageFallback();
+                }
+            } else {
+                loadLocalStorageFallback();
+            }
+        }
+
+        function loadLocalStorageFallback() {
+            const stored = localStorage.getItem('gumba_website_data');
+            if (stored) {
+                try {
+                    currentData = JSON.parse(stored);
+                } catch (e) {
+                    console.error("Error parsing localstorage data, fallback to code defaults", e);
+                    currentData = fallbackDefaultData;
+                }
+            } else {
+                localStorage.setItem('gumba_website_data', JSON.stringify(fallbackDefaultData));
+                currentData = fallbackDefaultData;
+            }
+        }
+
+        // Helper to update local storage and Supabase
+        async function updateGumbaData(newData) {
+            currentData = newData;
+            
+            // Always update localStorage as a backup
+            localStorage.setItem('gumba_website_data', JSON.stringify(newData));
+
+            if (supabaseClient) {
+                try {
+                    const { error } = await supabaseClient
+                        .from('gumba_data')
+                        .update({ content: newData })
+                        .eq('id', 'main');
+                    
+                    if (error) {
+                        console.error("Failed to update database, saved to local memory only:", error);
+                        alert("⚠️ Saved locally, but database update failed: " + error.message);
+                    }
+                } catch (e) {
+                    console.error("Supabase update error:", e);
+                    alert("⚠️ Saved locally, but database connection error.");
+                }
+            }
+        }
+
+        // Check login state
+        function checkAuth() {
+            const loggedIn = isStrictSessionActive;
+            const loginBox = document.getElementById('login-container');
+            const dashboardBox = document.getElementById('dashboard-container');
+
+            if (loggedIn) {
+                loginBox.classList.add('hidden');
+                dashboardBox.classList.remove('hidden');
+                switchTab('events');
+                loadDashboardData();
+            } else {
+                loginBox.classList.remove('hidden');
+                dashboardBox.classList.add('hidden');
+            }
+        }
+
+        // Handle Password Visibility Toggle
+        function togglePasswordVisibility() {
+            const pwInput = document.getElementById('login-password');
+            const eyeIcon = document.getElementById('eye-icon');
+            if (pwInput.type === 'password') {
+                pwInput.type = 'text';
+                eyeIcon.textContent = 'visibility_off';
+            } else {
+                pwInput.type = 'password';
+                eyeIcon.textContent = 'visibility';
+            }
+        }
+
+        let isStrictSessionActive = false;
+
+        // Handle Login Submission
+        async function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value.trim();
+            const errorMsg = document.getElementById('login-error');
+
+            // Support both gmail.com and gamil.com to avoid typos
+            const validEmails = ['urgenadmin@gmail.com', 'urgenadmin@gamil.com'];
+            
+            // Load latest data to check if password was updated
+            await loadGumbaData();
+            const expectedPassword = currentData.adminPassword || 'gumba123';
+
+            if (validEmails.includes(email.toLowerCase()) && password === expectedPassword) {
+                isStrictSessionActive = true;
+                errorMsg.classList.add('hidden');
+                checkAuth();
+            } else {
+                errorMsg.classList.remove('hidden');
+            }
+        }
+
+        // --- Password Reset Flow UI ---
+        function hideAllForms() {
+            ['login-form', 'forgot-password-form', 'verify-code-form', 'reset-password-form'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+        }
+        function showLoginForm() {
+            hideAllForms();
+            document.getElementById('login-form').classList.remove('hidden');
+        }
+        function showForgotPasswordForm() {
+            hideAllForms();
+            document.getElementById('forgot-password-form').classList.remove('hidden');
+            document.getElementById('reset-email-error').classList.add('hidden');
+        }
+
+        // --- Password Reset Flow Logic ---
+        async function handleSendResetCode(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-send-code');
+            const errorMsg = document.getElementById('reset-email-error');
+            const userEmail = document.getElementById('reset-email').value.trim();
+            
+            btn.innerHTML = 'Sending... <span class="material-symbols-outlined animate-spin text-sm ml-2">sync</span>';
+            btn.disabled = true;
+            errorMsg.classList.add('hidden');
+
+            try {
+                await loadGumbaData();
+                const code = Math.floor(100000 + Math.random() * 900000).toString();
+                
+                // Save to database
+                currentData.resetCode = code;
+                currentData.resetExpiry = Date.now() + 10 * 60 * 1000; // 10 minutes
+                await updateGumbaData(currentData);
+
+                // Send Email via EmailJS
+                await emailjs.send("service_kpp3r6o", "template_68hybv8", { 
+                    code: code,
+                    otp: code,
+                    OTP: code,
+                    message: code,
+                    email: userEmail,
+                    to_email: userEmail,
+                    reply_to: userEmail
+                });
+                
+                hideAllForms();
+                document.getElementById('verify-code-form').classList.remove('hidden');
+                document.getElementById('verify-code-error').classList.add('hidden');
+            } catch (err) {
+                console.error(err);
+                errorMsg.innerText = err.text || err.message || "Failed to send email. Check console.";
+                errorMsg.classList.remove('hidden');
+            } finally {
+                btn.innerHTML = 'Send Reset Code';
+                btn.disabled = false;
+            }
+        }
+
+        async function handleVerifyCode(e) {
+            e.preventDefault();
+            const inputCode = document.getElementById('reset-code-input').value.trim();
+            const errorMsg = document.getElementById('verify-code-error');
+            
+            await loadGumbaData();
+            
+            if (currentData.resetCode && currentData.resetCode === inputCode && Date.now() < currentData.resetExpiry) {
+                errorMsg.classList.add('hidden');
+                hideAllForms();
+                document.getElementById('reset-password-form').classList.remove('hidden');
+            } else {
+                errorMsg.classList.remove('hidden');
+            }
+        }
+
+        async function handleSaveNewPassword(e) {
+            e.preventDefault();
+            const newPw = document.getElementById('new-password').value;
+            const confirmPw = document.getElementById('confirm-new-password').value;
+            const errorMsg = document.getElementById('reset-password-error');
+            const successMsg = document.getElementById('reset-password-success');
+            
+            if (newPw !== confirmPw) {
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+            errorMsg.classList.add('hidden');
+            
+            await loadGumbaData();
+            currentData.adminPassword = newPw;
+            currentData.resetCode = null; // clear it
+            currentData.resetExpiry = null;
+            await updateGumbaData(currentData);
+            
+            successMsg.classList.remove('hidden');
+            setTimeout(() => {
+                successMsg.classList.add('hidden');
+                document.getElementById('new-password').value = '';
+                document.getElementById('confirm-new-password').value = '';
+                document.getElementById('reset-code-input').value = '';
+                showLoginForm();
+            }, 2000);
+        }
+
+        // Logout
+        function handleLogout() {
+            isStrictSessionActive = false;
+            document.getElementById('login-password').value = '';
+            checkAuth();
+        }
+
+        // Switch Tabs inside dashboard
+        function switchTab(tabName) {
+            // Hide all tab content
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            // Remove active style from all navigation links
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active', 'bg-primary', 'text-white', 'border-accent-gold'));
+
+            // Show target content
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+            
+            // Activate selected tab element
+            const activeBtn = document.getElementById(`btn-${tabName}`);
+            activeBtn.classList.add('active', 'bg-primary', 'text-white', 'border-accent-gold');
+        }
+
+        // Load content to render in Dashboard views
+        async function loadDashboardData() {
+            await loadGumbaData();
+            renderAdminEvents();
+            renderAdminGallery();
+            populateDonationForm();
+            populateContactForm();
+        }
+
+        // File Upload Handlers
+        function handleEventImgUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            document.getElementById('event-upload-name').textContent = file.name;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('event-img-url').value = e.target.result;
+                updateEventImgPreview();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateEventImgPreview() {
+            const val = document.getElementById('event-img-url').value.trim();
+            const previewContainer = document.getElementById('event-preview-container');
+            const previewImg = document.getElementById('event-preview-img');
+            if (val) {
+                previewImg.src = val;
+                previewContainer.classList.remove('hidden');
+            } else {
+                previewContainer.classList.add('hidden');
+                document.getElementById('event-upload-name').textContent = "No file chosen";
+            }
+        }
+
+        function handleGalleryImgUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            document.getElementById('gallery-upload-name').textContent = file.name;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('gallery-img-url').value = e.target.result;
+                updateGalleryImgPreview();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateGalleryImgPreview() {
+            const val = document.getElementById('gallery-img-url').value.trim();
+            const previewContainer = document.getElementById('gallery-preview-container');
+            const previewImg = document.getElementById('gallery-preview-img');
+            if (val) {
+                previewImg.src = val;
+                previewContainer.classList.remove('hidden');
+            } else {
+                previewContainer.classList.add('hidden');
+                document.getElementById('gallery-upload-name').textContent = "No file chosen";
+            }
+        }
+
+        function clearImage(urlInputId, fileInputId, uploadNameId, updatePreviewFn) {
+            document.getElementById(urlInputId).value = '';
+            document.getElementById(fileInputId).value = '';
+            document.getElementById(uploadNameId).textContent = 'No file chosen';
+            if (updatePreviewFn) updatePreviewFn();
+        }
+
+        /* ------------------ EVENTS CODE ------------------ */
+
+        function renderAdminEvents() {
+            const listContainer = document.getElementById('admin-events-list');
+            if (currentData.events.length === 0) {
+                listContainer.innerHTML = `<p class="text-slate-500 py-4 text-center">No events found. Click "Add New Event" to create one.</p>`;
+                return;
+            }
+
+            listContainer.innerHTML = currentData.events.map(ev => `
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 rounded-2xl border border-slate-200 dark:border-slate-800 gap-4 bg-slate-50/50 dark:bg-background-dark/20">
+                    <div class="flex items-center gap-4">
+                        <div class="h-16 w-16 bg-cover bg-center rounded-xl border border-primary/20 flex-shrink-0" style="background-image: url('${ev.image}')"></div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white">${ev.title}</h4>
+                            <p class="text-xs text-primary dark:text-accent-gold font-bold">${ev.date}</p>
+                            <p class="text-xs text-slate-500 max-w-md line-clamp-1 mt-1">${ev.description}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 self-end sm:self-center">
+                        <button onclick="openEventModal('${ev.id}')" class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-350 transition-colors">
+                            <span class="material-symbols-outlined text-lg">edit</span>
+                        </button>
+                        <button onclick="deleteEvent('${ev.id}')" class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-red-55 hover:bg-red-100 dark:bg-red-950/20 dark:hover:bg-red-950/40 text-red-600 dark:text-red-400 transition-colors">
+                            <span class="material-symbols-outlined text-lg">delete</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openEventModal(eventId = '') {
+            const modal = document.getElementById('event-modal');
+            const modalTitle = document.getElementById('event-modal-title');
+            
+            // Reset fields
+            document.getElementById('event-id').value = '';
+            document.getElementById('event-title').value = '';
+            document.getElementById('event-date').value = '';
+            document.getElementById('event-img-url').value = '';
+            document.getElementById('event-desc').value = '';
+            document.getElementById('event-img-file').value = '';
+
+            if (eventId) {
+                modalTitle.textContent = "Edit Event Details";
+                const ev = currentData.events.find(e => e.id === eventId);
+                if (ev) {
+                    document.getElementById('event-id').value = ev.id;
+                    document.getElementById('event-title').value = ev.title;
+                    document.getElementById('event-date').value = ev.date;
+                    document.getElementById('event-img-url').value = ev.image;
+                    document.getElementById('event-desc').value = ev.description;
+                }
+            } else {
+                modalTitle.textContent = "Add New Event";
+            }
+            
+            updateEventImgPreview();
+            modal.classList.remove('hidden');
+        }
+
+        function closeEventModal() {
+            document.getElementById('event-modal').classList.add('hidden');
+        }
+
+        async function saveEvent(e) {
+            e.preventDefault();
+            const id = document.getElementById('event-id').value;
+            const title = document.getElementById('event-title').value.trim();
+            const date = document.getElementById('event-date').value.trim();
+            const image = document.getElementById('event-img-url').value.trim();
+            const description = document.getElementById('event-desc').value.trim();
+
+            let updatedEvents = [...currentData.events];
+
+            if (id) {
+                // Edit
+                updatedEvents = updatedEvents.map(ev => 
+                    ev.id === id ? { id, title, date, image, description } : ev
+                );
+            } else {
+                // Add
+                const newId = 'event-' + Date.now();
+                updatedEvents.push({ id: newId, title, date, image, description });
+            }
+
+            await updateGumbaData({ ...currentData, events: updatedEvents });
+            closeEventModal();
+            loadDashboardData();
+        }
+
+        async function deleteEvent(id) {
+            if (confirm("Are you sure you want to delete this event?")) {
+                const updatedEvents = currentData.events.filter(ev => ev.id !== id);
+                await updateGumbaData({ ...currentData, events: updatedEvents });
+                loadDashboardData();
+            }
+        }
+
+
+        /* ------------------ GALLERY CODE ------------------ */
+
+        function renderAdminGallery() {
+            const container = document.getElementById('admin-gallery-grid');
+            if (currentData.gallery.length === 0) {
+                container.innerHTML = `<p class="col-span-full text-slate-500 py-4 text-center">No images in the gallery yet.</p>`;
+                return;
+            }
+
+            container.innerHTML = currentData.gallery.map(item => `
+                <div class="relative group aspect-[4/3] rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-background-dark/20 shadow-md">
+                    <div class="h-full w-full bg-cover bg-center" style="background-image: url('${item.image}')"></div>
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-3">
+                        <button onclick="deleteGalleryItem('${item.id}')" class="self-end inline-flex h-8 w-8 items-center justify-center rounded-lg bg-red-600 hover:bg-red-700 text-white shadow-lg transition-colors">
+                            <span class="material-symbols-outlined text-sm">delete</span>
+                        </button>
+                        <p class="text-xs text-white font-semibold line-clamp-2">${item.alt}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openGalleryModal() {
+            document.getElementById('gallery-img-url').value = '';
+            document.getElementById('gallery-img-file').value = '';
+            document.getElementById('gallery-alt').value = '';
+            updateGalleryImgPreview();
+            document.getElementById('gallery-modal').classList.remove('hidden');
+        }
+
+        function closeGalleryModal() {
+            document.getElementById('gallery-modal').classList.add('hidden');
+        }
+
+        async function saveGallery(e) {
+            e.preventDefault();
+            const image = document.getElementById('gallery-img-url').value.trim();
+            const alt = document.getElementById('gallery-alt').value.trim();
+            const id = 'gal-' + Date.now();
+
+            const updatedGallery = [...currentData.gallery, { id, image, alt }];
+            await updateGumbaData({ ...currentData, gallery: updatedGallery });
+            closeGalleryModal();
+            loadDashboardData();
+        }
+
+        async function deleteGalleryItem(id) {
+            if (confirm("Are you sure you want to delete this photo?")) {
+                const updatedGallery = currentData.gallery.filter(item => item.id !== id);
+                await updateGumbaData({ ...currentData, gallery: updatedGallery });
+                loadDashboardData();
+            }
+        }
+
+
+        /* ------------------ DONATION CODE ------------------ */
+
+        function populateDonationForm() {
+            const don = currentData.donation;
+            document.getElementById('bank-name').value = don.bankName || '';
+            document.getElementById('bank-acc-name').value = don.accountName || '';
+            document.getElementById('bank-acc-no').value = don.accountNo || '';
+            document.getElementById('wallet-no').value = don.walletNo || '';
+            document.getElementById('donation-qr').value = don.qrCode || '';
+            updateQrPreview();
+        }
+
+        function handleQrUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            document.getElementById('qr-upload-name').textContent = file.name;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64String = e.target.result;
+                document.getElementById('donation-qr').value = base64String;
+                updateQrPreview();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateQrPreview() {
+            const val = document.getElementById('donation-qr').value.trim();
+            const previewContainer = document.getElementById('qr-preview-container');
+            const previewImg = document.getElementById('qr-preview-img');
+            
+            if (val) {
+                previewImg.src = val;
+                previewContainer.classList.remove('hidden');
+            } else {
+                previewContainer.classList.add('hidden');
+                document.getElementById('qr-upload-name').textContent = "No file chosen";
+            }
+        }
+
+        async function saveDonation(e) {
+            e.preventDefault();
+            const bankName = document.getElementById('bank-name').value.trim();
+            const accountName = document.getElementById('bank-acc-name').value.trim();
+            const accountNo = document.getElementById('bank-acc-no').value.trim();
+            const walletNo = document.getElementById('wallet-no').value.trim();
+            const qrCode = document.getElementById('donation-qr').value.trim();
+
+            const updatedDonation = { bankName, accountName, accountNo, walletNo, qrCode };
+            await updateGumbaData({ ...currentData, donation: updatedDonation });
+
+            // Show success confirmation
+            const successIndicator = document.getElementById('donation-save-success');
+            successIndicator.classList.remove('hidden');
+            setTimeout(() => {
+                successIndicator.classList.add('hidden');
+            }, 3000);
+
+            loadDashboardData();
+        }
+
+        function populateContactForm() {
+            const con = currentData.contact || fallbackDefaultData.contact;
+            document.getElementById('contact-location').value = con.location || '';
+            document.getElementById('contact-phone').value = con.phone || '';
+            document.getElementById('contact-email').value = con.email || '';
+            document.getElementById('contact-map').value = con.mapUrl || '';
+        }
+
+        async function saveContact(e) {
+            e.preventDefault();
+            const location = document.getElementById('contact-location').value.trim();
+            const phone = document.getElementById('contact-phone').value.trim();
+            const email = document.getElementById('contact-email').value.trim();
+            const mapUrl = document.getElementById('contact-map').value.trim();
+
+            const updatedContact = { location, phone, email, mapUrl };
+            await updateGumbaData({ ...currentData, contact: updatedContact });
+
+            const successIndicator = document.getElementById('contact-save-success');
+            successIndicator.classList.remove('hidden');
+            setTimeout(() => {
+                successIndicator.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Global listener on start
+        window.addEventListener('DOMContentLoaded', async () => {
+            await loadGumbaData();
+            checkAuth();
+        });
+
+    </script>
+</body>
+
+</html>
