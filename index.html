@@ -129,13 +129,11 @@
         <section class="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto" id="about">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
                 <div class="relative pb-6 md:pb-0 pr-6 md:pr-0">
-                    <div class="about-img-main aspect-[4/5] rounded-2xl bg-cover bg-center shadow-2xl clickable-img" data-alt="Buddha meditating under a tree"
-                        style="background-image: url('images/entrance.jpeg');"
-                        onclick="openLightbox('images/entrance.jpeg', 'Buddha meditating under a tree')">
+                    <div id="about-img-main" class="about-img-main aspect-[4/5] rounded-2xl shadow-2xl clickable-img relative overflow-hidden" data-alt="Buddha meditating under a tree">
+                        <img src="images/entrance.jpeg" alt="Buddha meditating under a tree" class="w-full h-full object-cover" />
                     </div>
-                    <div class="about-img-accent absolute -bottom-6 -right-2 sm:-right-6 w-32 h-32 xs:w-40 xs:h-40 sm:w-48 sm:h-48 md:w-52 md:h-52 rounded-2xl border-8 border-background-light dark:border-background-dark bg-cover bg-center shadow-xl clickable-img" data-alt="Orgen Sanga Gumba entrance gate"
-                        style="background-image: url('images/sideview.jpeg');"
-                        onclick="openLightbox('images/sideview.jpeg', 'Orgen Sanga Gumba entrance gate')">
+                    <div id="about-img-accent" class="about-img-accent absolute -bottom-6 -right-2 sm:-right-6 w-32 h-32 xs:w-40 xs:h-40 sm:w-48 sm:h-48 md:w-52 md:h-52 rounded-2xl border-8 border-background-light dark:border-background-dark shadow-xl clickable-img overflow-hidden" data-alt="Orgen Sanga Gumba entrance gate">
+                        <img src="images/sideview.jpeg" alt="Orgen Sanga Gumba entrance gate" class="w-full h-full object-cover" />
                     </div>
                 </div>
                 <div>
@@ -333,6 +331,10 @@
         <script>
             // === GUMBA_DATA_START ===
             const defaultData = {
+                about: {
+                    mainImage: "images/entrance.jpeg",
+                    accentImage: "images/sideview.jpeg"
+                },
                 contact: {
                     location: "Parasnagar Chowk, Bharatpur-6, Chitwan, Nepal",
                     phone: "+977 9845900667",
@@ -425,6 +427,23 @@
                 renderGallery(data.gallery);
                 renderDonation(data.donation);
                 renderContact(data.contact);
+                renderAbout(data.about || defaultData.about);
+            }
+
+            function renderAbout(about) {
+                if (!about) return;
+                const mainImgContainer = document.getElementById('about-img-main');
+                if (mainImgContainer) {
+                    mainImgContainer.setAttribute('onclick', `openLightbox('${about.mainImage}', 'Buddha meditating under a tree')`);
+                    const img = mainImgContainer.querySelector('img');
+                    if (img) img.src = about.mainImage;
+                }
+                const accentImgContainer = document.getElementById('about-img-accent');
+                if (accentImgContainer) {
+                    accentImgContainer.setAttribute('onclick', `openLightbox('${about.accentImage}', 'Orgen Sanga Gumba entrance gate')`);
+                    const img = accentImgContainer.querySelector('img');
+                    if (img) img.src = about.accentImage;
+                }
             }
 
             // Helper to get local data fallback
@@ -466,8 +485,8 @@
                 }
                 container.innerHTML = events.map(event => `
                     <div class="overflow-hidden rounded-2xl border border-primary/10 dark:border-primary/20 bg-white dark:bg-background-dark/40 shadow-md transition-all duration-300 hover:border-primary/30 hover:shadow-xl group">
-                        <div class="h-56 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="${event.title}"
-                            style="background-image: url('${event.image}');">
+                        <div class="h-56 w-full relative overflow-hidden" data-alt="${event.title}">
+                            <img src="${event.image}" alt="${event.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                         </div>
                         <div class="p-6">
                             <div class="text-xs font-bold text-primary dark:text-accent-gold uppercase tracking-wider mb-2">${event.date}</div>
@@ -486,8 +505,8 @@
                     return;
                 }
                 container.innerHTML = gallery.map(item => `
-                    <div class="masonry-item clickable-img" data-alt="${item.alt}"
-                        style="background-image: url('${item.image}');" onclick="openLightbox('${item.image}')">
+                    <div class="masonry-item clickable-img relative overflow-hidden" data-alt="${item.alt}" onclick="openLightbox('${item.image}')">
+                        <img src="${item.image}" alt="${item.alt}" class="absolute inset-0 w-full h-full object-cover" />
                     </div>
                 `).join('');
             }
