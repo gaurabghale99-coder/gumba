@@ -1003,17 +1003,49 @@
             populateAboutForm();
         }
 
+        // Image Compression Utility
+        function compressImage(file, maxWidth, maxHeight, quality, callback) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    let width = img.width;
+                    let height = img.height;
+                    if (width > height) {
+                        if (width > maxWidth) {
+                            height = Math.round(height * maxWidth / width);
+                            width = maxWidth;
+                        }
+                    } else {
+                        if (height > maxHeight) {
+                            width = Math.round(width * maxHeight / height);
+                            height = maxHeight;
+                        }
+                    }
+                    const canvas = document.createElement('canvas');
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    callback(canvas.toDataURL('image/jpeg', quality));
+                };
+                img.onerror = function() {
+                    callback(event.target.result);
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
         // File Upload Handlers
         function handleEventImgUpload(event) {
             const file = event.target.files[0];
             if (!file) return;
             document.getElementById('event-upload-name').textContent = file.name;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('event-img-url').value = e.target.result;
+            compressImage(file, 1280, 1280, 0.7, function(dataUrl) {
+                document.getElementById('event-img-url').value = dataUrl;
                 updateEventImgPreview();
-            };
-            reader.readAsDataURL(file);
+            });
         }
 
         function updateEventImgPreview() {
@@ -1033,12 +1065,10 @@
             const file = event.target.files[0];
             if (!file) return;
             document.getElementById('gallery-upload-name').textContent = file.name;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('gallery-img-url').value = e.target.result;
+            compressImage(file, 1280, 1280, 0.7, function(dataUrl) {
+                document.getElementById('gallery-img-url').value = dataUrl;
                 updateGalleryImgPreview();
-            };
-            reader.readAsDataURL(file);
+            });
         }
 
         function updateGalleryImgPreview() {
@@ -1065,12 +1095,10 @@
             const file = event.target.files[0];
             if (!file) return;
             document.getElementById(nameSpanId).textContent = file.name;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById(urlInputId).value = e.target.result;
+            compressImage(file, 1280, 1280, 0.7, function(dataUrl) {
+                document.getElementById(urlInputId).value = dataUrl;
                 if(callback) callback();
-            };
-            reader.readAsDataURL(file);
+            });
         }
 
         /* ------------------ EVENTS CODE ------------------ */
@@ -1292,16 +1320,11 @@
         function handleQrUpload(event) {
             const file = event.target.files[0];
             if (!file) return;
-
             document.getElementById('qr-upload-name').textContent = file.name;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const base64String = e.target.result;
-                document.getElementById('donation-qr').value = base64String;
+            compressImage(file, 800, 800, 0.8, function(dataUrl) {
+                document.getElementById('donation-qr').value = dataUrl;
                 updateQrPreview();
-            };
-            reader.readAsDataURL(file);
+            });
         }
 
         function updateQrPreview() {
